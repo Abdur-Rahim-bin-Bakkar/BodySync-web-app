@@ -1,0 +1,97 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const faqs = [
+  {
+    question: "What is BodySync?",
+    answer:
+      "BodySync is a modern fitness & gym management platform where users can book classes, trainers can manage sessions, and admins control the entire system.",
+  },
+  {
+    question: "How do I book a class?",
+    answer:
+      "Simply go to All Classes, select a class, and click the Book Now button. After payment, your booking will be confirmed.",
+  },
+  {
+    question: "Can I become a trainer?",
+    answer:
+      "Yes! You can apply as a trainer from your dashboard. Admin will review and approve your application.",
+  },
+  {
+    question: "Is payment secure?",
+    answer:
+      "Yes, we use Stripe integration for secure and reliable payment processing.",
+  },
+];
+
+export default function FAQSection() {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggle = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <section className="bg-[#0B0F14] text-white py-16 px-4">
+      <div className="max-w-4xl mx-auto">
+
+        {/* TITLE */}
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl md:text-4xl font-bold text-center mb-10"
+        >
+          Frequently Asked <span className="text-[#FF6A1C]">Questions</span>
+        </motion.h2>
+
+        {/* ACCORDION */}
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className="border border-white/10 rounded-lg overflow-hidden"
+            >
+
+              {/* QUESTION */}
+              <button
+                onClick={() => toggle(index)}
+                className="w-full flex justify-between items-center p-4 text-left hover:bg-white/5 transition"
+              >
+                <span className="font-medium">
+                  {faq.question}
+                </span>
+
+                <span className="text-[#FF6A1C] text-xl">
+                  {openIndex === index ? "−" : "+"}
+                </span>
+              </button>
+
+              {/* ANSWER */}
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="px-4 pb-4 text-gray-300"
+                  >
+                    {faq.answer}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+            </motion.div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
