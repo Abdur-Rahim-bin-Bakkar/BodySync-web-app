@@ -9,7 +9,6 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // demo user (replace with Better Auth session)
   const user = {
     name: "Rahim",
     image: "https://i.pravatar.cc/100",
@@ -24,54 +23,80 @@ export default function Navbar() {
 
   const isActive = (path) => pathname === path;
 
-  const handleLogout = () => {
-    console.log("logout");
-  };
-
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0B0F14] text-white backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
 
-        {/* LOGO UPDATED ONLY */}
-        <Link href="/" className="flex items-center gap-2">
+        {/* LOGO (hover added) */}
+        <Link href="/" className="flex items-center gap-2 group">
           <img
             src="/images/logo.png"
             alt="BodySync Logo"
-            className="h-10 w-10 rounded-full object-cover"
+            className="h-10 w-10 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
           />
 
-          <span className="text-xl font-bold">
+          <span className="text-xl font-bold transition-colors duration-300 group-hover:text-[#FF6A1C]">
             BodySync
           </span>
         </Link>
 
         {/* DESKTOP MENU */}
         <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              className={`transition ${
-                isActive(item.path)
-                  ? "text-[#FF6A1C]"
-                  : "text-gray-300 hover:text-[#FF6A1C]"
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navLinks.map((item) => {
+            const active = isActive(item.path);
 
-          {/* Conditional Dashboard */}
+            return (
+              <Link
+                key={item.path}
+                href={item.path}
+                className="relative group transition"
+              >
+                {/* TEXT */}
+                <span
+                  className={`transition duration-300 ${
+                    active
+                      ? "text-[#FF6A1C]"
+                      : "text-gray-300 group-hover:text-[#FF6A1C]"
+                  }`}
+                >
+                  {item.name}
+                </span>
+
+                {/* UNDERLINE */}
+                <span
+                  className={`absolute left-0 -bottom-1 h-[2px] bg-[#FF6A1C] transition-all duration-300 ${
+                    active
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </Link>
+            );
+          })}
+
+          {/* DASHBOARD */}
           {user && (
             <Link
               href="/dashboard"
-              className={`transition ${
-                pathname.startsWith("/dashboard")
-                  ? "text-[#FF6A1C]"
-                  : "text-gray-300 hover:text-[#FF6A1C]"
-              }`}
+              className="relative group transition"
             >
-              Dashboard
+              <span
+                className={`transition duration-300 ${
+                  pathname.startsWith("/dashboard")
+                    ? "text-[#FF6A1C]"
+                    : "text-gray-300 group-hover:text-[#FF6A1C]"
+                }`}
+              >
+                Dashboard
+              </span>
+
+              <span
+                className={`absolute left-0 -bottom-1 h-[2px] bg-[#FF6A1C] transition-all duration-300 ${
+                  pathname.startsWith("/dashboard")
+                    ? "w-full"
+                    : "w-0 group-hover:w-full"
+                }`}
+              />
             </Link>
           )}
         </nav>
@@ -83,36 +108,35 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className="text-gray-300 hover:text-white"
+                className="text-gray-300 hover:text-[#FF6A1C] transition"
               >
                 Login
               </Link>
 
               <Link
                 href="/register"
-                className="rounded-md bg-[#FF6A1C] px-4 py-2 font-medium text-black hover:opacity-90"
+                className="rounded-md bg-[#FF6A1C] px-4 py-2 font-medium text-black hover:opacity-90 transition"
               >
                 Register
               </Link>
             </>
           ) : (
             <>
-              {/* PROFILE */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 group">
                 <img
                   src={user.image}
                   alt="user"
-                  className="h-9 w-9 rounded-full border border-white/20"
+                  className="h-9 w-9 rounded-full border border-white/20 transition-transform group-hover:scale-110"
                 />
 
-                <span className="text-sm text-gray-300">
+                <span className="text-sm text-gray-300 group-hover:text-white transition">
                   {user.name}
                 </span>
               </div>
 
               <button
-                onClick={handleLogout}
-                className="rounded-md border border-white/10 px-3 py-1 text-sm text-gray-300 hover:border-[#FF6A1C] hover:text-[#FF6A1C]"
+                onClick={() => console.log("logout")}
+                className="rounded-md border border-white/10 px-3 py-1 text-sm text-gray-300 hover:border-[#FF6A1C] hover:text-[#FF6A1C] transition"
               >
                 Logout
               </button>
@@ -120,11 +144,8 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* MOBILE TOGGLE */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden"
-        >
+        {/* MOBILE BUTTON */}
+        <button onClick={() => setOpen(!open)} className="md:hidden">
           {open ? <X /> : <Menu />}
         </button>
       </div>
@@ -133,16 +154,34 @@ export default function Navbar() {
       {open && (
         <div className="border-t border-white/10 bg-[#0B0F14] px-4 py-4 md:hidden">
 
-          {navLinks.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              onClick={() => setOpen(false)}
-              className="block py-2 text-gray-300 hover:text-[#FF6A1C]"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navLinks.map((item) => {
+            const active = isActive(item.path);
+
+            return (
+              <Link
+                key={item.path}
+                href={item.path}
+                onClick={() => setOpen(false)}
+                className="relative block py-2 transition"
+              >
+                <span
+                  className={`transition ${
+                    active
+                      ? "text-[#FF6A1C]"
+                      : "text-gray-300 hover:text-[#FF6A1C]"
+                  }`}
+                >
+                  {item.name}
+                </span>
+
+                <span
+                  className={`absolute left-0 bottom-1 h-[2px] bg-[#FF6A1C] transition-all duration-300 ${
+                    active ? "w-10" : "w-0"
+                  }`}
+                />
+              </Link>
+            );
+          })}
 
           {user && (
             <Link
@@ -157,10 +196,7 @@ export default function Navbar() {
           <div className="mt-3 border-t border-white/10 pt-3">
             {!user ? (
               <>
-                <Link
-                  href="/login"
-                  className="block py-2 text-gray-300"
-                >
+                <Link href="/login" className="block py-2 text-gray-300 hover:text-[#FF6A1C]">
                   Login
                 </Link>
 
@@ -172,10 +208,7 @@ export default function Navbar() {
                 </Link>
               </>
             ) : (
-              <button
-                onClick={handleLogout}
-                className="py-2 text-red-400"
-              >
+              <button className="py-2 text-red-400">
                 Logout
               </button>
             )}
