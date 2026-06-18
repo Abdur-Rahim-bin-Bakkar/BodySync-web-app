@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const ForumSearch = () => {
   const router = useRouter();
@@ -29,10 +30,18 @@ const ForumSearch = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center gap-3 mb-10">
-
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-row justify-center items-center gap-3 mb-10"
+    >
       {/* Search Input */}
-      <input
+      <motion.input
+        whileFocus={{
+          scale: 1.02,
+          boxShadow: "0 0 20px rgba(249,115,22,0.25)",
+        }}
         type="text"
         placeholder="Search forum posts..."
         value={search}
@@ -41,22 +50,35 @@ const ForumSearch = () => {
       />
 
       {/* Search Button */}
-      <button
+      <motion.button
+        whileHover={{
+          scale: 1.05,
+          y: -2,
+        }}
+        whileTap={{
+          scale: 0.95,
+        }}
         onClick={handleSearch}
         className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-xl transition-all duration-300"
       >
         Search
-      </button>
+      </motion.button>
 
       {/* All Button */}
-      <button
+      <motion.button
+        whileHover={{
+          scale: 1.05,
+          y: -2,
+        }}
+        whileTap={{
+          scale: 0.95,
+        }}
         onClick={handleShowAll}
         className="bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-800 dark:text-white px-6 py-3 rounded-xl transition-all duration-300"
       >
         All
-      </button>
-
-    </div>
+      </motion.button>
+    </motion.div>
   );
 };
 
