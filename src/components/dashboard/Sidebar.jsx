@@ -23,7 +23,7 @@ const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const menuItems = [
-    { name: "Overview", icon: <FaHome />, href: "/dashboard/trainer/overview" },
+    { name: "Overview", icon: <FaHome />, href: "/dashboard/trainer" },
     { name: "Add Class", icon: <FaPlusCircle />, href: "/dashboard/trainer/add-class" },
     { name: "My Classes", icon: <FaClipboardList />, href: "/dashboard/trainer/my-classes" },
     { name: "Add Forum", icon: <FaComments />, href: "/dashboard/trainer/add-forum" },

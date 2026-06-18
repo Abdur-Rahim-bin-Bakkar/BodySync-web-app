@@ -8,7 +8,7 @@ const DashboardLayout = async ({ children }) => {
     const userSession = await getServerSession()
     await checkAuth(userSession)
 
-
+    
     return (
         <div className='flex gap-2'>
             <Sidebar/>

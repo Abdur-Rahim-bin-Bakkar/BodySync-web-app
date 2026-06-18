@@ -1,11 +1,8 @@
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 const DashboardHomePage = () => {
-    return (
-        <div>
-            <h1>dp</h1>
-        </div>
-    );
+    redirect('/dashboard/trainer')
 };
 
 export default DashboardHomePage;
