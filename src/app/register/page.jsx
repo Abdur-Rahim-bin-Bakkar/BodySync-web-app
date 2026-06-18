@@ -120,7 +120,7 @@ export default function RegisterPage() {
 
 
     return (
-        <div className="min-h-screen flex bg-[#0B0F14] text-white">
+        <div className="min-h-screen flex bg-[#1d2f45] text-white py-10">
 
             {/* LEFT SIDE */}
             <div className="hidden lg:flex w-1/2 items-center justify-center p-10">

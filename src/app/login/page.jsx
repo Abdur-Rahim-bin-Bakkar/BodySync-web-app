@@ -9,12 +9,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const googleSignIn = async () => {
-    console.log('click hocche login')
+    console.log("click hocche login");
     const data = await authClient.signIn.social({
       provider: "google",
     });
-    console.log(data, 'data')
+    console.log(data, "data");
   };
 
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -66,10 +67,8 @@ export default function LoginPage() {
     }
   };
 
-
-
   return (
-    <div className="min-h-screen flex bg-[#0B0F14] text-white">
+    <div className="min-h-screen flex text-gray-900 bg-[#1d2f45] dark:text-white transition-colors duration-300 py-10">
 
       {/* LEFT SIDE */}
       <div className="hidden lg:flex w-1/2 items-center justify-center p-10">
@@ -83,7 +82,7 @@ export default function LoginPage() {
             <span className="text-[#FF6A1C]">BodySync</span>
           </h1>
 
-          <p className="text-gray-400 mt-4">
+          <p className="mt-4 text-gray-600 dark:text-gray-400">
             Login to access dashboard, classes, trainers and fitness progress.
           </p>
         </motion.div>
@@ -95,7 +94,9 @@ export default function LoginPage() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md bg-white/5 border border-white/10 rounded-xl p-6"
+          className="w-full max-w-md bg-gray-100 border border-gray-200 text-gray-900
+                     dark:bg-white/5 dark:border-white/10 dark:text-white
+                     rounded-xl p-6 transition-colors duration-300"
         >
 
           <h2 className="text-2xl font-bold text-center">
@@ -106,31 +107,35 @@ export default function LoginPage() {
 
             {/* EMAIL */}
             <input
-              key="login-email"
               type="email"
               name="email"
               placeholder="Email"
               value={form.email}
               onChange={handleChange}
               autoComplete="off"
-              className="w-full px-4 py-3 rounded-md bg-black/40 border border-white/10 outline-none focus:border-[#FF6A1C]"
+              className="w-full px-4 py-3 rounded-md
+                         bg-white text-black border border-gray-300
+                         dark:bg-black/40 dark:text-white dark:border-white/10
+                         outline-none focus:border-[#FF6A1C]"
             />
 
             {/* PASSWORD */}
             <input
-              key="login-password"
               type="password"
               name="password"
               placeholder="Password"
               value={form.password}
               onChange={handleChange}
               autoComplete="new-password"
-              className="w-full px-4 py-3 rounded-md bg-black/40 border border-white/10 outline-none focus:border-[#FF6A1C]"
+              className="w-full px-4 py-3 rounded-md
+                         bg-white text-black border border-gray-300
+                         dark:bg-black/40 dark:text-white dark:border-white/10
+                         outline-none focus:border-[#FF6A1C]"
             />
 
             {/* ERROR */}
             {error && (
-              <p className="text-red-400 text-sm">{error}</p>
+              <p className="text-red-500 text-sm">{error}</p>
             )}
 
             {/* BUTTON */}
@@ -146,7 +151,10 @@ export default function LoginPage() {
           {/* GOOGLE LOGIN */}
           <button
             onClick={googleSignIn}
-            className="w-full mt-4 flex items-center justify-center gap-2 border border-white/10 py-2 rounded-md hover:border-[#FF6A1C] transition"
+            className="w-full mt-4 flex items-center justify-center gap-2
+                       border border-gray-300 text-gray-900
+                       dark:border-white/10 dark:text-white
+                       py-2 rounded-md hover:border-[#FF6A1C] transition"
           >
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -157,7 +165,7 @@ export default function LoginPage() {
           </button>
 
           {/* REGISTER LINK */}
-          <p className="text-center text-gray-400 text-sm mt-5">
+          <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-5">
             Don’t have an account?{" "}
             <Link href="/register" className="text-[#FF6A1C]">
               Register
