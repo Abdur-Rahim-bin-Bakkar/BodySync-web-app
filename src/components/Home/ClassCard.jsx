@@ -5,22 +5,9 @@ import Link from "next/link";
 
 const ClassCard = ({ cls }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 40 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{
-        duration: 0.5,
-        type: "spring",
-        stiffness: 120,
-        damping: 12,
-      }}
-      whileHover={{
-        scale: 1.07,
-        rotate: 0.5,
-        boxShadow: "0px 10px 30px rgba(255, 106, 28, 0.25)",
-      }}
-      whileTap={{ scale: 0.98 }}
-      viewport={{ once: true }}
+    <div
+      
+     
       className="group bg-white dark:bg-[#111827] border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden shadow-md transition-all"
     >
       {/* IMAGE */}
@@ -93,7 +80,7 @@ const ClassCard = ({ cls }) => {
         </motion.div>
 
       </div>
-    </motion.div>
+    </div>
   );
 };
 
