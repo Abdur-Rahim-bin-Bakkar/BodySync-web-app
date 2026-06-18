@@ -9,6 +9,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const googleSignIn = async () => {
+    console.log('click hocche login')
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+    console.log(data, 'data')
+  };
 
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
@@ -59,17 +66,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      await authClient.signIn.social({
-        provider: "google",
-        callbackUrl,
-      });
-    } catch (err) {
-      console.log(err);
-      setError("Google login failed");
-    }
-  };
+
 
   return (
     <div className="min-h-screen flex bg-[#0B0F14] text-white">
@@ -148,7 +145,7 @@ export default function LoginPage() {
 
           {/* GOOGLE LOGIN */}
           <button
-            onClick={handleGoogleLogin}
+            onClick={googleSignIn}
             className="w-full mt-4 flex items-center justify-center gap-2 border border-white/10 py-2 rounded-md hover:border-[#FF6A1C] transition"
           >
             <img

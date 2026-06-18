@@ -12,12 +12,18 @@ export const auth = betterAuth({
     }),
     emailAndPassword: {
         enabled: true,
-        minPasswordLength:6
+        minPasswordLength: 6
     },
-    user:{
-        additionalFields:{
-            role:{
-                default:'user'
+    socialProviders: {
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        },
+    },
+    user: {
+        additionalFields: {
+            role: {
+                default: 'user'
             }
         }
     }

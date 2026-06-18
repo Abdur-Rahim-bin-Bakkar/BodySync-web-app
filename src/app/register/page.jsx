@@ -8,6 +8,11 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+    const googleSignIn = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+    };
     const router = useRouter()
     const [form, setForm] = useState({
         name: "",
@@ -96,7 +101,7 @@ export default function RegisterPage() {
             };
 
             const { data, error } = await authClient.signUp.email(payload);
-            if(data){
+            if (data) {
                 router.push('/')
             }
 
@@ -113,9 +118,6 @@ export default function RegisterPage() {
         }
     };
 
-    const handleGoogleLogin = () => {
-        console.log("Google login clicked");
-    };
 
     return (
         <div className="min-h-screen flex bg-[#0B0F14] text-white">
@@ -282,7 +284,7 @@ export default function RegisterPage() {
 
                     {/* GOOGLE LOGIN */}
                     <button
-                        onClick={handleGoogleLogin}
+                        onClick={googleSignIn}
                         className="w-full mt-4 flex items-center justify-center gap-2 border border-white/10 py-2 rounded-md hover:border-[#FF6A1C] transition"
                     >
                         <img
