@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import {
   Menu,
   X,
@@ -26,7 +25,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
 
   const session = useUserSessionClient();
-  const user = session?.user || null;
+  const user = session?.user;
 
   useEffect(() => {
     setMounted(true);
@@ -42,11 +41,15 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await authClient.signOut();
-    router.push("/login");
+    router.replace("/login");
   };
 
-  // 🔥 Prevent SSR hydration mismatch
-  if (!mounted) return null;
+  // 🔥 Prevent hydration mismatch safely (NOT blocking UI permanently)
+  if (!mounted) {
+    return (
+      <header className="sticky top-0 z-50 border-b bg-white dark:bg-[#0B0F14] h-16" />
+    );
+  }
 
   return (
     <header
@@ -59,60 +62,54 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
 
         {/* LOGO */}
-        <motion.div whileHover={{ scale: 1.05 }}>
-          <Link href="/" className="flex items-center gap-2 group">
-            <img
-              src="/images/logo.png"
-              className="h-10 w-10 rounded-full"
-              alt="logo"
-            />
-            <span className="text-xl font-bold group-hover:text-[#FF6A1C] transition">
-              BodySync
-            </span>
-          </Link>
-        </motion.div>
+        <Link href="/" className="flex items-center gap-2 group">
+          <img
+            src="/images/logo.png"
+            className="h-10 w-10 rounded-full"
+            alt="logo"
+          />
+          <span className="text-xl font-bold group-hover:text-[#FF6A1C] transition">
+            BodySync
+          </span>
+        </Link>
 
         {/* NAV */}
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((item, i) => {
+          {navLinks.map((item) => {
             const Icon = item.icon;
             const active = isActive(item.path);
 
             return (
-              <motion.div
+              <Link
                 key={item.path}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: i * 0.05 }}
+                href={item.path}
+                className="flex items-center gap-1 group relative"
               >
-                <Link href={item.path} className="flex items-center gap-1 group relative">
+                <Icon
+                  size={16}
+                  className={
+                    active
+                      ? "text-[#FF6A1C]"
+                      : "text-gray-500 dark:text-gray-400 group-hover:text-[#FF6A1C]"
+                  }
+                />
 
-                  <Icon
-                    size={16}
-                    className={
-                      active
-                        ? "text-[#FF6A1C]"
-                        : "text-gray-500 dark:text-gray-400 group-hover:text-[#FF6A1C]"
-                    }
-                  />
+                <span
+                  className={
+                    active
+                      ? "text-[#FF6A1C]"
+                      : "text-gray-700 dark:text-gray-300 group-hover:text-[#FF6A1C]"
+                  }
+                >
+                  {item.name}
+                </span>
 
-                  <span
-                    className={
-                      active
-                        ? "text-[#FF6A1C]"
-                        : "text-gray-700 dark:text-gray-300 group-hover:text-[#FF6A1C]"
-                    }
-                  >
-                    {item.name}
-                  </span>
-
-                  <span
-                    className={`absolute left-0 -bottom-1 h-[2px] bg-[#FF6A1C] transition-all ${
-                      active ? "w-full" : "w-0 group-hover:w-full"
-                    }`}
-                  />
-                </Link>
-              </motion.div>
+                <span
+                  className={`absolute left-0 -bottom-1 h-[2px] bg-[#FF6A1C] transition-all ${
+                    active ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </Link>
             );
           })}
         </nav>
@@ -138,11 +135,15 @@ export default function Navbar() {
 
               <div className="flex items-center gap-2">
                 <img
-                  src={user.image || "/images/user.png"}
+                  src={user?.image || "/images/user.png"}
                   className="h-9 w-9 rounded-full border border-gray-200 dark:border-white/20"
+                  alt="user"
                 />
                 <span className="text-sm text-gray-600 dark:text-gray-300">
-                  Hi, <span className="font-semibold text-gray-900 dark:text-white">{user.name}</span>
+                  Hi,{" "}
+                  <span className="font-semibold text-gray-900 dark:text-white">
+                    {user?.name}
+                  </span>
                 </span>
               </div>
 
@@ -160,9 +161,10 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              
-
-              <Link href="/login" className="text-gray-600 dark:text-gray-300 hover:text-[#FF6A1C]">
+              <Link
+                href="/login"
+                className="text-gray-600 dark:text-gray-300 hover:text-[#FF6A1C]"
+              >
                 Login
               </Link>
 
@@ -186,46 +188,41 @@ export default function Navbar() {
       </div>
 
       {/* MOBILE MENU */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="
-              md:hidden border-t px-4 py-4 space-y-2
-              bg-white text-gray-900 border-gray-200
-              dark:bg-[#0B0F14] dark:text-white dark:border-white/10
-            "
-          >
-            {navLinks.map((item) => {
-              const Icon = item.icon;
+      {open && (
+        <div
+          className="
+            md:hidden border-t px-4 py-4 space-y-2
+            bg-white text-gray-900 border-gray-200
+            dark:bg-[#0B0F14] dark:text-white dark:border-white/10
+          "
+        >
+          {navLinks.map((item) => {
+            const Icon = item.icon;
 
-              return (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-2 py-2 text-gray-600 dark:text-gray-300 hover:text-[#FF6A1C]"
-                >
-                  <Icon size={16} />
-                  {item.name}
-                </Link>
-              );
-            })}
-
-            {user && (
-              <button
-                onClick={handleLogout}
-                className="w-full flex items-center justify-center gap-2 py-2 mt-2 rounded-md text-red-500 border border-red-200 dark:border-red-500/20 hover:bg-red-50 dark:hover:bg-red-500/10"
+            return (
+              <Link
+                key={item.path}
+                href={item.path}
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 py-2 text-gray-600 dark:text-gray-300 hover:text-[#FF6A1C]"
               >
-                <LogOut size={16} />
-                Logout
-              </button>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <Icon size={16} />
+                {item.name}
+              </Link>
+            );
+          })}
+
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center justify-center gap-2 py-2 mt-2 rounded-md text-red-500 border border-red-200 dark:border-red-500/20 hover:bg-red-50 dark:hover:bg-red-500/10"
+            >
+              <LogOut size={16} />
+              Logout
+            </button>
+          )}
+        </div>
+      )}
     </header>
   );
 }
