@@ -112,4 +112,4 @@ export default async function Success({ searchParams }) {
       </section>
     )
   }
-}
+} 

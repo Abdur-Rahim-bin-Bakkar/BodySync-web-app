@@ -22,46 +22,15 @@ const ClassDetails = ({
 }) => {
     const router = useRouter();
     const session = useUserSessionClient();
-    
+
     const userId = session?.user?.id;
     const classId = classData?._id;
     console.log(classId)
-
     const [isFavorite, setIsFavorite] = useState(favorite);
     const [loading, setLoading] = useState(false);
+    // console.log(isFavorite, 'favo')
 
-    // ⭐ CHECK INITIAL FAVORITE
-    useEffect(() => {
-        const checkFavorite = async () => {
-            if (!userId || !classId) return;
 
-            try {
-                const res = await fetch(
-                    `${process.env.NEXT_PUBLIC_SERVER_URI}/favorites/check?userId=${userId}&classId=${classId}`
-                );
-
-                const data = await res.json();
-
-                if (res.ok) {
-                    setIsFavorite(data.isFavorite);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        checkFavorite();
-    }, [userId, classId]);
-
-    // ⭐ BOOK CLASS
-    const handleBookNow = () => {
-        if (booked) {
-            toast.error("You have already booked this class");
-            return;
-        }
-
-        router.push(`/payment/${classData._id}`);
-    };
 
     // ⭐ FAVORITE TOGGLE
     const handleFavorite = async () => {
@@ -216,17 +185,22 @@ const ClassDetails = ({
                         </div>
 
                         <div className="flex gap-3">
+                            <form action="/api/checkout_sessions" method="POST">
+                                <input type="hidden" name="classId" value={classId || 'noid'} />
+                                <input type="hidden" name="userId" value={userId || 'noid'} />
+                                <section>
+                                    <button
+                                        disabled={booked}
+                                        className={`px-8 py-3 rounded-xl font-medium text-white transition ${booked
+                                            ? "bg-gray-400 cursor-not-allowed"
+                                            : "bg-orange-500 hover:bg-orange-600"
+                                            }`}
+                                        type="submit" role="link">
+                                        {booked ? "Already Booked" : "Book Now"}
 
-                            <button
-                                onClick={handleBookNow}
-                                disabled={booked}
-                                className={`px-8 py-3 rounded-xl font-medium text-white transition ${booked
-                                    ? "bg-gray-400 cursor-not-allowed"
-                                    : "bg-orange-500 hover:bg-orange-600"
-                                    }`}
-                            >
-                                {booked ? "Already Booked" : "Book Now"}
-                            </button>
+                                    </button>
+                                </section>
+                            </form>
 
 
                             <button
@@ -243,15 +217,7 @@ const ClassDetails = ({
                                     ? "Saved To Favorites"
                                     : "Add To Favorites"}
                             </button>
-                            <form action="/api/checkout_sessions" method="POST">
-                                    <input type="hidden" name="classId" value={classId || 'noid'} />
-                                    <input type="hidden" name="userId" value={userId || 'noid'} />
-                                <section>
-                                    <button type="submit" role="link">
-                                        Checkout
-                                    </button>
-                                </section>
-                            </form>
+
 
                         </div>
                     </div>
