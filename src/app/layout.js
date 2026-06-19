@@ -5,6 +5,7 @@ import "./globals.css";
 import MainNavbar from "@/components/sheare/Navbar";
 import Footer from "@/components/sheare/Footer";
 import Providers from "@/lib/provider/ThemeProvider";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,15 @@ export default function RootLayout({ children }) {
           </main>
           {/* <Footer /> */}
         </Providers>
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          theme="light"
+        />
       </body>
     </html>
   );
