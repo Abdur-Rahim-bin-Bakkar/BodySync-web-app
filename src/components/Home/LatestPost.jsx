@@ -6,7 +6,7 @@ const LatestPost = async () => {
     const latestPostData = await getLatestForumPosts();
 
     return (
-        <section className="w-full px-4 md:px-10 py-12">
+        <section className="max-w-11/12 mx-auto px-4 md:px-10 py-12">
             {/* Header */}
             <div className="mb-8 text-center md:text-left">
                 <h2 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white">
@@ -21,7 +21,7 @@ const LatestPost = async () => {
             </div>
 
             {/* Grid Wrapper (slightly improved spacing + feel) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
                 {latestPostData?.slice(0, 4).map((post, i) => (
                     <div
                         key={i}

@@ -1,7 +1,7 @@
 import { getServerSession } from "@/lib/session/server";
 import { FaBookmark, FaHeart, FaUserCircle } from "react-icons/fa";
 
-export default async function UserOverview({  stats, trainerApplication }) {
+export default async function UserOverview({ stats, trainerApplication }) {
     const session = await getServerSession()
     return (
         <div className="p-6 space-y-8">

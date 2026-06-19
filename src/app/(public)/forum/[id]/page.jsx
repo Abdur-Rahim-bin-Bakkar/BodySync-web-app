@@ -1,6 +1,8 @@
 import { getForumPostById } from "@/lib/api/getForunPosts";
 import CommentSection from "./ommentSection";
 import { getCommentsByPostId } from "@/lib/api/getComment";
+import { getServerSession } from "@/lib/session/server";
+import LikeOrDislike from "./LikeOrDislike";
 // import CommentSection from "./CommentSection";
 
 const ForumIdPage = async ({ params }) => {
@@ -8,6 +10,15 @@ const ForumIdPage = async ({ params }) => {
 
   const post = await getForumPostById(id);
   const commentsData = await getCommentsByPostId(id)
+  const postId = post?._id
+  const userData = await getServerSession()
+  const userId = await userData?.user?.id
+  console.log(postId, 'post')
+
+
+
+ 
+
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -32,17 +43,10 @@ const ForumIdPage = async ({ params }) => {
       </p>
 
       {/* Like / Dislike */}
-      <div className="flex gap-4 mt-6">
-        <button className="px-4 py-2 bg-green-100 rounded">
-          👍 {post.likes}
-        </button>
-        <button className="px-4 py-2 bg-red-100 rounded">
-          👎 {post.dislikes}
-        </button>
-      </div>
+      <LikeOrDislike userId={userId} post={post}  />
 
       {/* Comments */}
-      <CommentSection postId={id} commentsData ={commentsData} />
+      <CommentSection postId={id} commentsData={commentsData} />
     </div>
   );
 };
