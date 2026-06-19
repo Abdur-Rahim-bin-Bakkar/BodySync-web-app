@@ -22,9 +22,10 @@ const ClassDetails = ({
 }) => {
     const router = useRouter();
     const session = useUserSessionClient();
-
+    
     const userId = session?.user?.id;
     const classId = classData?._id;
+    console.log(classId)
 
     const [isFavorite, setIsFavorite] = useState(favorite);
     const [loading, setLoading] = useState(false);
@@ -220,19 +221,20 @@ const ClassDetails = ({
                                 onClick={handleBookNow}
                                 disabled={booked}
                                 className={`px-8 py-3 rounded-xl font-medium text-white transition ${booked
-                                        ? "bg-gray-400 cursor-not-allowed"
-                                        : "bg-orange-500 hover:bg-orange-600"
+                                    ? "bg-gray-400 cursor-not-allowed"
+                                    : "bg-orange-500 hover:bg-orange-600"
                                     }`}
                             >
                                 {booked ? "Already Booked" : "Book Now"}
                             </button>
 
+
                             <button
                                 onClick={handleFavorite}
                                 disabled={loading}
                                 className={`px-6 py-3 rounded-xl border flex items-center gap-2 transition ${isFavorite
-                                        ? "bg-orange-500 text-white border-orange-500"
-                                        : "border-orange-500 text-orange-500 hover:bg-orange-50"
+                                    ? "bg-orange-500 text-white border-orange-500"
+                                    : "border-orange-500 text-orange-500 hover:bg-orange-50"
                                     }`}
                             >
                                 <FaHeart />
@@ -241,6 +243,15 @@ const ClassDetails = ({
                                     ? "Saved To Favorites"
                                     : "Add To Favorites"}
                             </button>
+                            <form action="/api/checkout_sessions" method="POST">
+                                    <input type="hidden" name="classId" value={classId || 'noid'} />
+                                    <input type="hidden" name="userId" value={userId || 'noid'} />
+                                <section>
+                                    <button type="submit" role="link">
+                                        Checkout
+                                    </button>
+                                </section>
+                            </form>
 
                         </div>
                     </div>
