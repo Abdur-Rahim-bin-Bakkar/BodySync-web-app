@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import {
     FaClock,
     FaCalendarAlt,
@@ -11,6 +10,10 @@ import {
     FaHeart,
 } from "react-icons/fa";
 import { useUserSessionClient } from "@/lib/session/client";
+
+// ⭐ react-toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ClassDetails = ({
     classData,
@@ -26,7 +29,7 @@ const ClassDetails = ({
     const [isFavorite, setIsFavorite] = useState(favorite);
     const [loading, setLoading] = useState(false);
 
-    // ⭐ STEP 1: Check initial favorite status from DB
+    // ⭐ CHECK INITIAL FAVORITE
     useEffect(() => {
         const checkFavorite = async () => {
             if (!userId || !classId) return;
@@ -59,7 +62,7 @@ const ClassDetails = ({
         router.push(`/payment/${classData._id}`);
     };
 
-    // ⭐ FAVORITE TOGGLE (ADD + REMOVE)
+    // ⭐ FAVORITE TOGGLE
     const handleFavorite = async () => {
         if (!userId) {
             toast.error("Please login first");
@@ -67,6 +70,8 @@ const ClassDetails = ({
         }
 
         setLoading(true);
+
+        const toastId = toast.loading("Processing...");
 
         try {
             const res = await fetch(
@@ -86,20 +91,41 @@ const ClassDetails = ({
             const data = await res.json();
 
             if (!res.ok) {
-                toast.error(data.message || "Something went wrong");
+                toast.update(toastId, {
+                    render: data.message || "Something went wrong",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 2000,
+                });
                 return;
             }
 
-            // ⭐ UI UPDATE
             if (data.type === "added") {
                 setIsFavorite(true);
-                toast.success("Added to favorites");
+
+                toast.update(toastId, {
+                    render: "Added to favorites ❤️",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 2000,
+                });
             } else {
                 setIsFavorite(false);
-                toast.success("Removed from favorites");
+
+                toast.update(toastId, {
+                    render: "Removed from favorites 💔",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 2000,
+                });
             }
         } catch (error) {
-            toast.error("Server error");
+            toast.update(toastId, {
+                render: "Server error",
+                type: "error",
+                isLoading: false,
+                autoClose: 2000,
+            });
         } finally {
             setLoading(false);
         }
@@ -107,10 +133,22 @@ const ClassDetails = ({
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">
-            {/* HERO SECTION */}
+
+            {/* ⭐ Toast Container (fixed top-center) */}
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                pauseOnHover
+                draggable
+                theme="light"
+            />
+
+            {/* HERO */}
             <div className="grid lg:grid-cols-2 gap-10 items-center">
 
-                {/* IMAGE */}
                 <div>
                     <img
                         src={classData.image}
@@ -119,7 +157,6 @@ const ClassDetails = ({
                     />
                 </div>
 
-                {/* DETAILS */}
                 <div>
                     <span className="inline-block px-4 py-1 rounded-full bg-orange-100 text-orange-600 text-sm font-medium">
                         {classData.category}
@@ -133,13 +170,11 @@ const ClassDetails = ({
                         {classData.description}
                     </p>
 
-                    {/* INFO CARDS */}
                     <div className="grid grid-cols-2 gap-4 mt-8">
+
                         <div className="border rounded-2xl p-4">
                             <FaSignal className="text-orange-500 text-xl mb-2" />
-                            <p className="text-sm text-gray-500">
-                                Difficulty
-                            </p>
+                            <p className="text-sm text-gray-500">Difficulty</p>
                             <h3 className="font-semibold">
                                 {classData.difficultyLevel}
                             </h3>
@@ -147,9 +182,7 @@ const ClassDetails = ({
 
                         <div className="border rounded-2xl p-4">
                             <FaClock className="text-orange-500 text-xl mb-2" />
-                            <p className="text-sm text-gray-500">
-                                Duration
-                            </p>
+                            <p className="text-sm text-gray-500">Duration</p>
                             <h3 className="font-semibold">
                                 {classData.duration}
                             </h3>
@@ -157,9 +190,7 @@ const ClassDetails = ({
 
                         <div className="border rounded-2xl p-4">
                             <FaCalendarAlt className="text-orange-500 text-xl mb-2" />
-                            <p className="text-sm text-gray-500">
-                                Schedule
-                            </p>
+                            <p className="text-sm text-gray-500">Schedule</p>
                             <h3 className="font-semibold text-sm">
                                 {classData.schedule}
                             </h3>
@@ -167,17 +198,15 @@ const ClassDetails = ({
 
                         <div className="border rounded-2xl p-4">
                             <FaUsers className="text-orange-500 text-xl mb-2" />
-                            <p className="text-sm text-gray-500">
-                                Bookings
-                            </p>
+                            <p className="text-sm text-gray-500">Bookings</p>
                             <h3 className="font-semibold">
                                 {classData.bookingCount}
                             </h3>
                         </div>
                     </div>
 
-                    {/* PRICE + ACTIONS */}
                     <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+
                         <div>
                             <p className="text-gray-500">Price</p>
                             <h2 className="text-3xl font-bold text-orange-500">
@@ -187,7 +216,6 @@ const ClassDetails = ({
 
                         <div className="flex gap-3">
 
-                            {/* BOOK BUTTON */}
                             <button
                                 onClick={handleBookNow}
                                 disabled={booked}
@@ -199,7 +227,6 @@ const ClassDetails = ({
                                 {booked ? "Already Booked" : "Book Now"}
                             </button>
 
-                            {/* FAVORITE BUTTON */}
                             <button
                                 onClick={handleFavorite}
                                 disabled={loading}
@@ -214,44 +241,12 @@ const ClassDetails = ({
                                     ? "Saved To Favorites"
                                     : "Add To Favorites"}
                             </button>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* EXTRA INFO */}
-            <div className="mt-14 border rounded-3xl p-8">
-                <h2 className="text-2xl font-bold mb-4">
-                    Class Information
-                </h2>
-
-                <div className="space-y-3 text-gray-600 dark:text-gray-300">
-                    <p>
-                        <span className="font-semibold">
-                            Trainer ID:
-                        </span>{" "}
-                        {classData.trainerId}
-                    </p>
-
-                    <p>
-                        <span className="font-semibold">
-                            Status:
-                        </span>{" "}
-                        <span className="capitalize">
-                            {classData.status}
-                        </span>
-                    </p>
-
-                    <p>
-                        <span className="font-semibold">
-                            Created At:
-                        </span>{" "}
-                        {new Date(
-                            classData.createdAt
-                        ).toLocaleDateString()}
-                    </p>
-                </div>
-            </div>
         </div>
     );
 };
