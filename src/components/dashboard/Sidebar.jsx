@@ -13,22 +13,41 @@ import {
   FaTimes,
   FaAngleLeft,
   FaAngleRight,
+  FaBookmark,
+  FaUserPlus,
+  FaHeart
 } from "react-icons/fa";
 
 import SidebarContent from "./SidebarContent";
+import { useUserSessionClient } from "@/lib/session/client";
 
 const Sidebar = () => {
+  const session = useUserSessionClient()
+  const role = session?.user?.role
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  let menuItems = []
 
-  const menuItems = [
+  const trainerLinks = [
     { name: "Overview", icon: <FaHome />, href: "/dashboard/trainer" },
     { name: "Add Class", icon: <FaPlusCircle />, href: "/dashboard/trainer/add-class" },
     { name: "My Classes", icon: <FaClipboardList />, href: "/dashboard/trainer/my-classes" },
     { name: "Add Forum", icon: <FaComments />, href: "/dashboard/trainer/add-forum" },
     { name: "My Forum", icon: <FaRegNewspaper />, href: "/dashboard/trainer/my-forum" },
   ];
+  const userLinks = [
+    { name: "Overview", icon: <FaHome />, href: "/dashboard/user" },
+    { name: "Booked Classes", icon: <FaBookmark />, href: "/dashboard/user/booked-classes" },
+    { name: "Apply as Trainer", icon: <FaUserPlus />, href: "/dashboard/user/apply-trainer" },
+    { name: "Favorite Classes", icon: <FaHeart />, href: "/dashboard/user/favorites" },
+  ];
+  if (role === 'user') {
+    menuItems = userLinks
+  }
+  if (role === 'trainer') {
+    menuItems = trainerLinks
+  }
 
   return (
     <>

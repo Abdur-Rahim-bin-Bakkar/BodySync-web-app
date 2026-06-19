@@ -22,7 +22,7 @@ const SidebarContent = ({ pathname, menuItems, onClick, collapsed }) => {
             >
                 <Image src="/images/logo.png" alt="logo" width={32} height={32} />
                 {!collapsed && (
-                    <span className="text-xl font-bold">FitZone</span>
+                    <span className="text-xl font-bold">BodySync</span>
                 )}
             </Link>
 

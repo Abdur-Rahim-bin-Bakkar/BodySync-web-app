@@ -45,7 +45,7 @@ export default async function OverviewPage() {
 
           {/* Trainer Badge */}
           <span className="inline-block mt-2 px-3 py-1 text-xs font-semibold bg-orange-500 text-white rounded-full">
-            Trainer
+            {user?.role}
           </span>
         </div>
       </div>
