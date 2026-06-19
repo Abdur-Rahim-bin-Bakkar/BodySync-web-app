@@ -1,0 +1,62 @@
+"use client";
+
+import { useState } from "react";
+import CommentItem from "./CommentItem";
+import { addComment } from "@/lib/post/addComment";
+
+const CommentSection = ({ postId,commentsData  }) => {
+    const [comment, setComment] = useState("");
+    const comments = commentsData
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!comment.trim()) return;
+
+        const newComment = {
+            text: comment,
+            // createdAt: new Date().toISOString(),
+        };
+
+        // UI update (optimistic)
+        // setComments((prev) => [newComment, ...prev]);
+        setComment("");
+        const postResult = await addComment(postId, newComment)
+        console.log(postResult, 'comment result')
+
+
+    };
+
+    return (
+        <div className="mt-10">
+            <h2 className="text-xl font-semibold mb-4">Comments</h2>
+
+            {/* Comment form */}
+            <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
+                <input
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    placeholder="Write a comment..."
+                    className="flex-1 border p-2 rounded"
+                />
+                <button className="px-4 py-2 bg-blue-600 text-white rounded">
+                    Post
+                </button>
+            </form>
+
+            {/* Comment list */}
+            <div className="space-y-3">
+                {comments.length === 0 ? (
+                    <p className="text-gray-400">No comments yet</p>
+                ) : (
+                    comments.map((c, i) => (
+                        <CommentItem key={i} comment={c} />
+                    ))
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default CommentSection;
