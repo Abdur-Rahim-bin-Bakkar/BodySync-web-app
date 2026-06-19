@@ -3,21 +3,26 @@ import CommentSection from "./ommentSection";
 import { getCommentsByPostId } from "@/lib/api/getComment";
 import { getServerSession } from "@/lib/session/server";
 import LikeOrDislike from "./LikeOrDislike";
+import { redirect } from "next/navigation";
 // import CommentSection from "./CommentSection";
 
 const ForumIdPage = async ({ params }) => {
+  // const session = await getServerSession()
+  const userData = await getServerSession()
+  if (!userData) {
+    redirect('/login')
+  }
   const { id } = await params;
 
   const post = await getForumPostById(id);
   const commentsData = await getCommentsByPostId(id)
   const postId = post?._id
-  const userData = await getServerSession()
   const userId = await userData?.user?.id
   console.log(postId, 'post')
 
 
 
- 
+
 
 
   return (
@@ -43,7 +48,7 @@ const ForumIdPage = async ({ params }) => {
       </p>
 
       {/* Like / Dislike */}
-      <LikeOrDislike userId={userId} post={post}  />
+      <LikeOrDislike userId={userId} post={post} />
 
       {/* Comments */}
       <CommentSection postId={id} commentsData={commentsData} />
