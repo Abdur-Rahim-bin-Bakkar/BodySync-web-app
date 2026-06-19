@@ -3,10 +3,12 @@
 import { useState } from "react";
 import CommentItem from "./CommentItem";
 import { addComment } from "@/lib/post/addComment";
+import { useUserSessionClient } from "@/lib/session/client";
 
 const CommentSection = ({ postId,commentsData  }) => {
     const [comment, setComment] = useState("");
     const comments = commentsData
+    const sesssion = useUserSessionClient()
 
 
     const handleSubmit = async (e) => {
@@ -16,6 +18,7 @@ const CommentSection = ({ postId,commentsData  }) => {
 
         const newComment = {
             text: comment,
+            user:sesssion?.user
             // createdAt: new Date().toISOString(),
         };
 
