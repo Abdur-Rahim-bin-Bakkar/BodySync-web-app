@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { AlertDialog, Button } from "@heroui/react";
 import { deleteForumPost } from "@/lib/deletes/deleteForumPost";
+import { toast } from "react-toastify";
 
 export default function DeleteForumPostButton({ id }) {
     const router = useRouter();
@@ -15,6 +16,7 @@ export default function DeleteForumPostButton({ id }) {
         setLoading(true);
         const deleteResult = await deleteForumPost(id)
         router.refresh();
+        toast.dark('deleted')
         setLoading(false);
     };
 

@@ -36,7 +36,7 @@ export default async function TransactionsPage() {
       ) : (
         /* TABLE WRAPPER */
         <div className="w-full overflow-x-auto rounded-2xl border border-base-300 bg-base-200 shadow-sm">
-          
+
           {/* MOBILE CARD VIEW (sm only) */}
           <div className="md:hidden space-y-3 p-3">
             {transactions.map((t, index) => (
@@ -58,12 +58,12 @@ export default async function TransactionsPage() {
                 <p className="text-xs text-gray-500 mt-1">
                   {t.createdAt
                     ? new Date(t.createdAt).toLocaleString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })
                     : "N/A"}
                 </p>
 
@@ -89,39 +89,48 @@ export default async function TransactionsPage() {
               </thead>
 
               {/* BODY */}
-              <tbody>
+              <tbody className="space-y-3">
                 {transactions.map((t, index) => (
                   <tr
                     key={t._id}
-                    className="hover:bg-base-300 transition border-b border-base-300"
+                    className="
+        bg-base-100
+        border border-base-300
+        hover:bg-base-300/40
+        hover:shadow-md
+        hover:-translate-y-[2px]
+        transition-all duration-200 ease-in-out
+        rounded-xl
+        overflow-hidden
+      "
                   >
-                    <td className="text-center font-medium">
+                    <td className="text-center font-medium py-4">
                       {index + 1}
                     </td>
 
-                    <td className="truncate font-medium">
+                    <td className="truncate font-medium py-4">
                       {t.userEmail}
                     </td>
 
-                    <td className="text-center">
+                    <td className="text-center py-4">
                       <span className="inline-flex px-3 py-1 rounded-full bg-success/20 text-success font-semibold text-sm">
                         ${(t.amount || 0) / 100}
                       </span>
                     </td>
 
-                    <td className="text-center text-sm text-gray-500">
+                    <td className="text-center text-sm text-gray-500 py-4">
                       {t.createdAt
                         ? new Date(t.createdAt).toLocaleString("en-GB", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
                         : "N/A"}
                     </td>
 
-                    <td className="font-mono text-xs text-gray-600 break-all">
+                    <td className="font-mono text-xs text-gray-600 break-all py-4">
                       {t.transactionId}
                     </td>
                   </tr>
