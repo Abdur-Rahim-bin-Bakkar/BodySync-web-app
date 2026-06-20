@@ -1,6 +1,7 @@
 import { getUserBookings } from '@/lib/api/getUserBookings';
 import { getServerSession } from '@/lib/session/server';
 import UserBookingsTable from './UserBookingsTable';
+import { CalendarX } from 'lucide-react';
 
 const UserBookingPage = async () => {
     const session = await getServerSession();
@@ -16,7 +17,23 @@ const UserBookingPage = async () => {
                 My Registered Classes
             </h1>
 
-            <UserBookingsTable bookings={bookings} />
+            {bookings.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-20 text-center text-gray-500">
+
+                    <CalendarX size={50} className="mb-4 text-gray-400" />
+
+                    <h2 className="text-xl font-semibold text-gray-700">
+                        No Bookings Found
+                    </h2>
+
+                    <p className="text-sm mt-2">
+                        You haven,t registered for any classes yet.
+                    </p>
+
+                </div>
+            ) : (
+                <UserBookingsTable bookings={bookings} />
+            )}
         </div>
     );
 };
