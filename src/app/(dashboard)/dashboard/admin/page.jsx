@@ -6,12 +6,13 @@ import { getServerSession } from "@/lib/session/server";
 const AdminHomePage = async () => {
     const adminOverviewData = await getAdminOverviewStats();
 
-    // (optional) later from session
-    const adminUser = await getServerSession()
+    const adminUser = await getServerSession();
 
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
-            <h1 className="text-2xl font-bold mb-5">Admin Dashboard</h1>
+        <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+            <h1 className="text-2xl font-bold mb-5 text-gray-900 dark:text-white">
+                Admin Dashboard
+            </h1>
 
             {/* Profile */}
             <AdminProfileCard user={adminUser?.user} />

@@ -65,7 +65,7 @@ export default function AddForumPostForm() {
 
     const postResult = await createForumPost(payload)
     if (postResult?.insertedId) {
-      router.push('/dashboard/trainer/my-forum')
+      router.push('/dashboard/admin/my-forum')
     }
 
     console.log(payload, "forum post data");

@@ -20,7 +20,7 @@ const MyForumPage = async () => {
         </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {myForumData?.length > 0 ? (
           myForumData.map((post) => (
             <MyForumCard

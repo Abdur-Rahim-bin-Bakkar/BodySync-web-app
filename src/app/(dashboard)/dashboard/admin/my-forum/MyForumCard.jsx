@@ -44,14 +44,14 @@ const MyForumCard = ({ post }) => {
 
     return (
         <div className="w-full border border-default-200 rounded-2xl overflow-hidden bg-white dark:bg-[#0B0F14]">
-            <div className="flex flex-col md:flex-row gap-6 p-5">
+            <div className="flex flex-col gap-6 p-5">
 
                 {/* IMAGE */}
                 <div className="w-full md:w-64 h-52 overflow-hidden rounded-xl">
                     <img
                         src={post?.image}
                         alt={post?.title}
-                        className="w-full h-full object-cover"
+                        className="w-full object-cover"
                     />
                 </div>
 
