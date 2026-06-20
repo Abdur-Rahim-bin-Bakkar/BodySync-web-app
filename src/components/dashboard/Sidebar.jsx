@@ -79,9 +79,14 @@ const Sidebar = () => {
       href: "/dashboard/admin/add-forum",
     },
      {
+      name: "MY Forum",
+      icon: <FaRegNewspaper />,
+      href: "/dashboard/admin/my-forum",
+    },
+     {
       name: "Forum Management",
       icon: <FaTrashAlt />,
-      href: "/dashboard/admin/my-forum",
+      href: "/dashboard/admin/forum-management",
     },
     {
       name: "Transactions",
