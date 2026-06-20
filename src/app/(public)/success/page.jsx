@@ -15,7 +15,8 @@ export default async function Success({ searchParams }) {
   const {
     status,
     customer_details: { email: customerEmail },
-    metadata
+    metadata,
+    payment_intent,
   } = await stripe.checkout.sessions.retrieve(session_id, {
     expand: ['line_items', 'payment_intent']
   })
@@ -28,6 +29,8 @@ export default async function Success({ searchParams }) {
     const bookInfo = {
       classId: metadata?.classId,
       userId: metadata?.userId,
+      transactionId: payment_intent?.id,
+      amount: payment_intent?.amount
 
     }
     console.log(bookInfo, 'bookInfo')
