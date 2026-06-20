@@ -1,8 +1,6 @@
-// import toast from "react-hot-toast";
 "use client";
 
 import { applyTrainer } from "@/lib/post/applyAsTrainer";
-// import { applyAsTrainer } from "@/lib/post/applyAsTrainer";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -11,31 +9,57 @@ const ApplyTrainerForm = ({ isApplied, userId }) => {
     const [specialty, setSpecialty] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
-    console.log(experience, specialty, description)
-    console.log(isApplied?.data)
 
-    // 🚨 If already applied
-    if (isApplied?.data) {
+    const data = isApplied?.data;
+
+    // 🚨 IF ALREADY APPLIED
+    if (data) {
+
+        const status = data.status;
+
         return (
-            <div className="bg-green-50 border border-green-200 p-6 rounded-xl text-center">
-                <h2 className="text-xl font-semibold text-green-700">
-                    Application Submitted
+            <div className="w-full bg-white dark:bg-[#0B0F14] border border-gray-200 dark:border-gray-800 p-6 rounded-2xl text-center shadow-sm">
+
+                {/* STATUS BADGE */}
+                <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full mb-4
+                    ${status === "Approved"
+                        ? "bg-green-500 text-white"
+                        : status === "Rejected"
+                        ? "bg-red-500 text-white"
+                        : "bg-yellow-500 text-white"
+                    }
+                `}>
+                    {status}
+                </span>
+
+                {/* TITLE */}
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Trainer Application Status
                 </h2>
 
-                <p className="text-sm text-green-600 mt-2">
-                    Your application is currently under review. Status: <b>Pending</b>
+                {/* MESSAGE */}
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                    {status === "Approved" &&
+                        "🎉 Congratulations! You are now a Trainer."}
+
+                    {status === "Rejected" &&
+                        "❌ Your application was not approved."}
+
+                    {status === "Pending" &&
+                        "⏳ Your application is under review."}
                 </p>
+
+                {/* FEEDBACK */}
+                {data.feedback && (
+                    <div className="mt-4 p-3 rounded-xl bg-gray-100 dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300">
+                        <b>Admin Feedback:</b> {data.feedback}
+                    </div>
+                )}
             </div>
         );
     }
 
-    // 📝 Submit handler
-    //  userId,
-    //                 experience,
-    //                 specialty,
-    //                 status: "Pending",
-    // import { applyAsTrainer } from "@/lib/api/applyAsTrainer";
-
+    // 📝 SUBMIT
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -61,54 +85,62 @@ const ApplyTrainerForm = ({ isApplied, userId }) => {
         }
     };
 
+    // 🧾 FORM UI
     return (
         <form
             onSubmit={handleSubmit}
-            className="bg-white border p-6 rounded-xl space-y-4"
+            className="w-full bg-white dark:bg-[#0B0F14] border border-gray-200 dark:border-gray-800 p-6 rounded-2xl space-y-5 shadow-sm"
         >
-            {/* Experience */}
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Apply as Trainer
+            </h2>
+
+            {/* EXPERIENCE */}
             <div>
-                <label className="text-sm font-medium">Experience (years)</label>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Experience (years)
+                </label>
                 <input
                     type="number"
                     value={experience}
                     onChange={(e) => setExperience(e.target.value)}
-                    className="w-full border p-2 rounded-lg mt-1"
+                    className="w-full mt-1 p-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                     placeholder="e.g. 2"
-                    required
                 />
             </div>
 
-            {/* Specialty */}
+            {/* SPECIALTY */}
             <div>
-                <label className="text-sm font-medium">Specialty</label>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Specialty
+                </label>
                 <input
                     type="text"
                     value={specialty}
                     onChange={(e) => setSpecialty(e.target.value)}
-                    className="w-full border p-2 rounded-lg mt-1"
+                    className="w-full mt-1 p-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                     placeholder="Yoga, Weights, Cardio..."
-                    required
                 />
             </div>
 
-            {/* Description */}
+            {/* DESCRIPTION */}
             <div>
-                <label className="text-sm font-medium">Description</label>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Description
+                </label>
                 <textarea
-
+                    value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="w-full border p-2 rounded-lg mt-1"
-                    placeholder="Write about your experience, skills, and background..."
+                    className="w-full mt-1 p-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                    placeholder="Tell us about your experience..."
                     rows={4}
-                    required
                 />
             </div>
 
-            {/* Submit */}
+            {/* SUBMIT */}
             <button
                 disabled={loading}
-                className="w-full bg-black text-white py-2 rounded-lg"
+                className="w-full py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black font-medium hover:opacity-90 transition"
             >
                 {loading ? "Submitting..." : "Apply Now"}
             </button>

@@ -1,8 +1,12 @@
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
 
 // get users
-export const getUsers = async () => {
-    const res = await fetch(`${BASE_URL}/users`);
+export const getUsers = async (search = "") => {
+    const res = await fetch(
+        `${BASE_URL}/users?search=${search}`,
+        { cache: "no-store" }
+    );
+
     return res.json();
 };
 
