@@ -78,10 +78,11 @@ export default function ForumManagePage() {
                   </h3>
                 </div>
 
-                <motion.div
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <DeleteForumPostButton id={post._id} />
+                <motion.div whileTap={{ scale: 0.9 }}>
+                  <DeleteForumPostButton
+                    id={post._id}
+                    setPosts={setPosts}
+                  />
                 </motion.div>
 
               </div>
