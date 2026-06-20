@@ -15,7 +15,12 @@ import {
   FaAngleRight,
   FaBookmark,
   FaUserPlus,
-  FaHeart
+  FaHeart,
+  FaUsers,
+  FaUserCheck,
+  FaUserShield,
+  FaMoneyCheckAlt,
+  FaTrashAlt,
 } from "react-icons/fa";
 
 import SidebarContent from "./SidebarContent";
@@ -42,11 +47,57 @@ const Sidebar = () => {
     { name: "Apply as Trainer", icon: <FaUserPlus />, href: "/dashboard/user/apply-trainer" },
     { name: "Favorite Classes", icon: <FaHeart />, href: "/dashboard/user/favorites" },
   ];
+  const adminLinks = [
+    {
+      name: "Overview",
+      icon: <FaHome />,
+      href: "/dashboard/admin",
+    },
+    {
+      name: "Manage Users",
+      icon: <FaUsers />,
+      href: "/dashboard/admin/users",
+    },
+    {
+      name: "Applied Trainers",
+      icon: <FaUserCheck />,
+      href: "/dashboard/admin/applied-trainers",
+    },
+    {
+      name: "Manage Trainers",
+      icon: <FaUserShield />,
+      href: "/dashboard/admin/trainers",
+    },
+    {
+      name: "Manage Classes",
+      icon: <FaClipboardList />,
+      href: "/dashboard/admin/classes",
+    },
+    {
+      name: "Add Forum Post",
+      icon: <FaPlusCircle />,
+      href: "/dashboard/admin/add-forum",
+    },
+     {
+      name: "Forum Management",
+      icon: <FaTrashAlt />,
+      href: "/dashboard/admin/my-forum",
+    },
+    {
+      name: "Transactions",
+      icon: <FaMoneyCheckAlt />,
+      href: "/dashboard/admin/transactions",
+    },
+   
+  ];
   if (role === 'user') {
     menuItems = userLinks
   }
   if (role === 'trainer') {
     menuItems = trainerLinks
+  }
+  if (role === 'admin') {
+    menuItems = adminLinks
   }
 
   return (
