@@ -1,3 +1,4 @@
+import { incrementBookingCount } from '@/app/api/patch/bookingCountUpdata'
 import { getClassById } from '@/lib/api/getClassDetails'
 import { createBooking } from '@/lib/post/bookings'
 import { stripe } from '@/lib/stripe'
@@ -36,6 +37,7 @@ export default async function Success({ searchParams }) {
     console.log(postResult, 'this is post result')
     const bookingClassDetail = await getClassById(metadata?.classId)
     console.log(bookingClassDetail, 'booking class')
+    const upadateResult = await incrementBookingCount(metadata?.classId)
     return (
       <section className="min-h-screen flex items-center justify-center bg-base-200 px-4 py-10">
         <div className="max-w-2xl w-full bg-base-100 shadow-xl rounded-2xl overflow-hidden">
