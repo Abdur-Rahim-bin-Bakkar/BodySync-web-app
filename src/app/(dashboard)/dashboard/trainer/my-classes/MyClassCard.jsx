@@ -1,61 +1,134 @@
+"use client";
+
 import { Edit, Trash2, Users } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { deleteClass } from "@/lib/deletes/deleteClass";
+import { getClassStudents } from "@/lib/api/getClassStudents";
+import UpdateClassModal from "./UpdateClassModal";
+import DeleteModal from "./DeleteModal";
 
 const MyClassCard = ({ cls }) => {
+  const [openStudents, setOpenStudents] = useState(false);
+  const [students, setStudents] = useState([]);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+
+  // 👥 VIEW STUDENTS
+  const handleStudents = async () => {
+    const res = await getClassStudents(cls._id);
+    setStudents(res.data || []);
+    setOpenStudents(true);
+  };
+
+  // 🗑 REAL DELETE LOGIC (ONLY HERE)
+  const handleDelete = async () => {
+    const res = await deleteClass(cls._id);
+
+    if (res.success) {
+      toast.success("Class deleted");
+      window.location.reload();
+    } else {
+      toast.error("Failed to delete");
+    }
+  };
+
   return (
-    <div className="bg-white dark:bg-[#111827] border border-gray-200 dark:border-gray-800 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-5 shadow-sm hover:shadow-md transition">
+    <>
+      <div className="bg-white dark:bg-[#111827] border rounded-2xl p-5 flex justify-between gap-5">
 
-      {/* Left Side */}
-      <div className="flex items-center gap-4">
-        {/* Image */}
-        <img
-          src={cls.image}
-          alt={cls.className}
-          className="w-16 h-16 rounded-xl object-cover border"
-        />
+        {/* LEFT */}
+        <div className="flex gap-4">
+          <img
+            src={cls.image}
+            className="w-16 h-16 rounded-xl object-cover"
+          />
 
-        {/* Info */}
-        <div>
-          <div className="flex items-center gap-3">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {cls.className}
-            </h2>
+          <div>
+            <h2 className="font-semibold">{cls.className}</h2>
 
-            <span
-              className={`text-xs px-3 py-1 rounded-full font-medium ${
-                cls.status === "Approved"
-                  ? "bg-green-100 text-green-600"
-                  : cls.status === "Pending"
-                  ? "bg-yellow-100 text-yellow-600"
-                  : "bg-red-100 text-red-600"
-              }`}
-            >
-              {cls.status}
-            </span>
+            <p className="text-sm text-gray-500">
+              {cls.category} • {cls.duration} • ${cls.price}
+            </p>
+
+            <p className="text-xs mt-1 text-gray-400">
+              Booking: {cls.bookingCount}
+            </p>
           </div>
+        </div>
 
-          <div className="text-sm text-gray-500 mt-1 flex flex-wrap gap-3">
-            <span>🏷 {cls.category}</span>
-            <span>⏱ {cls.duration}</span>
-            <span>💲 {cls.price}</span>
-          </div>
+        {/* ACTIONS */}
+        <div className="flex gap-2">
+
+          <button
+            onClick={handleStudents}
+            className="px-3 py-2 border rounded-lg flex items-center gap-2"
+          >
+            <Users size={16} /> Students
+          </button>
+
+          <button
+            onClick={() => setOpenEdit(true)}
+            className="px-3 py-2 border rounded-lg text-blue-500"
+          >
+            <Edit size={16} /> Edit
+          </button>
+
+          <UpdateClassModal
+            cls={cls}
+            isOpen={openEdit}
+            onClose={() => setOpenEdit(false)}
+          />
+
+          {/* DELETE BUTTON */}
+          <button
+            onClick={() => setOpenDelete(true)}
+            className="px-3 py-2 border rounded-lg text-red-500"
+          >
+            <Trash2 size={16} /> Delete
+          </button>
+
         </div>
       </div>
 
-      {/* Right Side Actions */}
-      <div className="flex gap-3">
-        <button className="flex items-center gap-2 px-4 py-2 rounded-xl border text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">
-          <Users size={16} /> Enrolled
-        </button>
+      {/* STUDENTS MODAL */}
+      {openStudents && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+          <div className="bg-white p-5 rounded-xl w-[400px]">
+            <h2 className="font-bold mb-3">Enrolled Students</h2>
 
-        <button className="flex items-center gap-2 px-4 py-2 rounded-xl border text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20">
-          <Edit size={16} /> Edit
-        </button>
+            {students.length === 0 ? (
+              <p>No students yet</p>
+            ) : (
+              students.map((s, i) => (
+                <div key={i} className="border-b py-2">
+                  <p>{s.user?.name || "No name"}</p>
+                  <p className="text-sm text-gray-500">
+                    {s.user?.email}
+                  </p>
+                </div>
+              ))
+            )}
 
-        <button className="flex items-center gap-2 px-4 py-2 rounded-xl border text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20">
-          <Trash2 size={16} /> Delete
-        </button>
-      </div>
-    </div>
+            <button
+              onClick={() => setOpenStudents(false)}
+              className="mt-3 px-4 py-2 bg-black text-white rounded-lg"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE MODAL */}
+      <DeleteModal
+        isOpen={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onDelete={handleDelete}
+        title="Delete Class"
+        description="Are you sure you want to delete this class? This action cannot be undone."
+      />
+    </>
   );
 };
 

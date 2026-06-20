@@ -87,7 +87,7 @@ export default async function Success({ searchParams }) {
 
               <div className="flex justify-between">
                 <span className="font-medium">Trainer ID</span>
-                <span>{bookingClassDetail.trainerId}</span>
+                <span>{bookingClassDetail.userId}</span>
               </div>
 
               <div className="flex justify-between text-lg font-bold text-primary">

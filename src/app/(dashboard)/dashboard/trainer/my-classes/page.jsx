@@ -1,6 +1,7 @@
-import { getTrainerClasses } from "@/lib/api/getClassTrainerId";
+// import { getTrainerClasses } from "@/lib/api/getClassuserId";
 import { getServerSession } from "@/lib/session/server";
 import MyClassCard from "./MyClassCard";
+import { getTrainerClasses } from "@/lib/api/getClassTrainerId";
 
 const MyClassesPage = async () => {
   const userData = await getServerSession();

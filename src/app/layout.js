@@ -6,6 +6,7 @@ import MainNavbar from "@/components/sheare/Navbar";
 import Footer from "@/components/sheare/Footer";
 import Providers from "@/lib/provider/ThemeProvider";
 import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({ children }) {
           pauseOnHover
           theme="light"
         />
+        <Toaster position="top-right" />
       </body>
     </html>
   );

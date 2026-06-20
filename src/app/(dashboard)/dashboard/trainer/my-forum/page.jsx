@@ -1,11 +1,11 @@
-import { getForumPostsByTrainerId } from "@/lib/api/getMyForum";
+import { getForumPostsByuserId } from "@/lib/api/getMyForum";
 import { getServerSession } from "@/lib/session/server";
 import MyForumCard from "./MyForumCard";
 
 const MyForumPage = async () => {
   const session = await getServerSession();
 
-  const myForumData = await getForumPostsByTrainerId(
+  const myForumData = await getForumPostsByuserId(
     session?.user?.id
   );
 

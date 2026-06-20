@@ -1,6 +1,6 @@
-export const getTrainerClasses = async (trainerId) => {
+export const getTrainerClasses = async (userId) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URI}/classes/${trainerId}`
+    `${process.env.NEXT_PUBLIC_SERVER_URI}/classes/${userId}`
   );
 
   const data = await response.json();

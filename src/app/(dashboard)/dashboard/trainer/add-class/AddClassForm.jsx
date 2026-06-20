@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 export default function AddClassForm() {
   const router = useRouter()
   const session = useUserSessionClient()
-  const trainerId = session?.user?.id
-  console.log(trainerId)
+  const userId = session?.user?.id
+  console.log(userId)
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -79,7 +79,7 @@ export default function AddClassForm() {
       ...form,
       image,
       status: "Pending",
-      trainerId,
+      userId,
       bookingCount: 0
     };
     const postResult = await createClass(payload)
@@ -118,6 +118,7 @@ export default function AddClassForm() {
           <input
             type="text"
             name="className"
+            required
             value={form.className}
             onChange={handleChange}
             placeholder="Enter class name"
@@ -132,6 +133,7 @@ export default function AddClassForm() {
           </label>
 
           <select
+            required
             name="category"
             value={form.category}
             onChange={handleChange}
@@ -155,6 +157,7 @@ export default function AddClassForm() {
           </label>
 
           <select
+            required
             name="difficultyLevel"
             value={form.difficultyLevel}
             onChange={handleChange}
@@ -176,6 +179,7 @@ export default function AddClassForm() {
           <input
             type="text"
             name="duration"
+            required
             value={form.duration}
             onChange={handleChange}
             placeholder="e.g. 60 Minutes"
@@ -192,6 +196,7 @@ export default function AddClassForm() {
           <input
             type="time"
             name="time"
+            required
             value={form.time}
             onChange={handleChange}
             className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#131A22] focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -207,6 +212,7 @@ export default function AddClassForm() {
           <input
             type="number"
             name="price"
+            required
             value={form.price}
             onChange={handleChange}
             placeholder="Enter class fee"
@@ -245,6 +251,7 @@ export default function AddClassForm() {
         </label>
 
         <textarea
+          required
           rows={5}
           name="description"
           value={form.description}
@@ -273,6 +280,7 @@ export default function AddClassForm() {
 
           <input
             type="file"
+            required
             accept="image/*"
             onChange={handleImageUpload}
             className="hidden"
