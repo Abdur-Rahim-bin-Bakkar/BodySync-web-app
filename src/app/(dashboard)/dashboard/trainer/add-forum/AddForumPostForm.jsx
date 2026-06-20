@@ -60,7 +60,7 @@ export default function AddForumPostForm() {
     const payload = {
       ...form,
       image,
-      trainerId: session?.user?.id
+      userId: session?.user?.id
     };
 
     const postResult = await createForumPost(payload)

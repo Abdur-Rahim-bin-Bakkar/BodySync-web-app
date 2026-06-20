@@ -1,6 +1,6 @@
 export const getForumPostsByTrainerId = async (trainerId) => {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/forum/trainer/${trainerId}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/forum/userId/${trainerId}`,
         {
             cache: "no-store",
         }

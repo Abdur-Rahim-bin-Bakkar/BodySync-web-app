@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const ForumCard = ({ post }) => {
+  console.log(post, 'pp')
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
