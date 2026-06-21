@@ -25,7 +25,8 @@
     "react-toastify": "^11.1.0",
     "recharts": "^3.8.1",
     "sonner": "^2.0.7",
-    "stripe": "^22.2.2"
+    "stripe": "^22.2.2",
+    "sweetalert2": "^11.26.25"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
