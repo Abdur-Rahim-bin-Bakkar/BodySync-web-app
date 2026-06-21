@@ -7,7 +7,8 @@ export const createForumPost = async (forumData) => {
         ...forumData,
         authorRole:session?.user?.role,
         authorName:session?.user?.name,
-        authorEmail:session?.user?.email
+        authorEmail:session?.user?.email,
+        userId:session?.user?.id
 
     }
     const response = await fetch(
