@@ -95,13 +95,13 @@ export default function ManageUsersPage() {
             )}
 
             {/* TABLE WRAPPER */}
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto shadow rounded-2xl hover:shadow-2xl">
                 <table className="w-full bg-white dark:bg-gray-800 shadow rounded-xl overflow-hidden">
 
                     <thead className="bg-gray-100 dark:bg-gray-700">
                         <tr className="text-gray-700 dark:text-gray-200">
                             <th className="p-3 text-left">Name</th>
-                            <th>Email</th>
+                           
                             <th>Role</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -119,26 +119,31 @@ export default function ManageUsersPage() {
 
                                     {
                                         user?.image ?
-                                        <Image
-                                            className="w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-600"
-                                            src={user?.image}
-                                            alt="user profile photo"
-                                            width={100}
-                                            height={100}
-                                        />
-                                        :
-                                        <FaUser />
+                                            <Image
+                                                className="w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-600"
+                                                src={user?.image}
+                                                alt="user profile photo"
+                                                width={100}
+                                                height={100}
+                                            />
+                                            :
+                                            <FaUser />
                                     }
-                                    {user.name}
+                                    <div className="flex flex-col gap-2">
+                                        <span>
+                                            {user.name}
+                                        </span>
+                                        <span className="hidden md:block">
+                                            {user.email}
+                                        </span>
+                                    </div>
                                 </td>
 
                                 {/* EMAIL */}
-                                <td className="text-gray-700 dark:text-gray-300">
-                                    {user.email}
-                                </td>
+                                
 
                                 {/* ROLE */}
-                                <td className="capitalize text-gray-700 dark:text-gray-300">
+                                <td className={`capitalize text-gray-700 dark:text-gray-300 ${user.role ==='admin' && 'text-red-500'}  ${user.role ==='user' && 'text-blue-500'} ${user.role ==='trainer' && 'text-yellow-500'}`}>
                                     {user.role}
                                 </td>
 
@@ -146,8 +151,8 @@ export default function ManageUsersPage() {
                                 <td>
                                     <span
                                         className={`px-2 py-1 rounded text-sm font-medium ${user.status === "blocked"
-                                                ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-                                                : "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                                            ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                                            : "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                                             }`}
                                     >
                                         {user.status || "active"}
@@ -184,6 +189,17 @@ export default function ManageUsersPage() {
                                             className="px-3 py-1 rounded bg-blue-500 hover:bg-blue-600 text-white transition"
                                         >
                                             Make Admin
+                                        </button>
+                                    )}
+
+                                    {user.role === "admin" && (
+                                        <button
+                                            onClick={() =>
+                                                handleMakeAdmin(user._id)
+                                            }
+                                            className="px-3 py-1 rounded bg-green-500 hover:bg-red-600 text-white transition"
+                                        >
+                                            Already Admin
                                         </button>
                                     )}
                                 </td>
