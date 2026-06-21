@@ -1,6 +1,8 @@
 "use client";
 
 import { applyTrainer } from "@/lib/post/applyAsTrainer";
+import { useUserSessionClient } from "@/lib/session/client";
+// import { useUserSessionClient } from "@/lib/session/client";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -9,6 +11,7 @@ const ApplyTrainerForm = ({ isApplied, userId }) => {
     const [specialty, setSpecialty] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
+    const session = useUserSessionClient()
 
     const data = isApplied?.data;
 
@@ -25,8 +28,8 @@ const ApplyTrainerForm = ({ isApplied, userId }) => {
                     ${status === "Approved"
                         ? "bg-green-500 text-white"
                         : status === "Rejected"
-                        ? "bg-red-500 text-white"
-                        : "bg-yellow-500 text-white"
+                            ? "bg-red-500 text-white"
+                            : "bg-yellow-500 text-white"
                     }
                 `}>
                     {status}
@@ -61,7 +64,13 @@ const ApplyTrainerForm = ({ isApplied, userId }) => {
 
     // 📝 SUBMIT
     const handleSubmit = async (e) => {
+        // const session = 
         e.preventDefault();
+
+        if (session?.user?.status === 'blocked') {
+            toast.error('blocked by admin')
+            return
+        }
 
         if (!experience || !specialty || !description) {
             return toast.error("All fields are required");
