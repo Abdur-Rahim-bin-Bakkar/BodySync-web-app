@@ -3,7 +3,15 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
-const categories = ["Yoga", "Cardio", "Weight"];
+const categories = [
+  "Yoga",
+  "Cardio",
+  "Strength Training",
+  "HIIT",
+  "CrossFit",
+  "Zumba",
+  "Pilates",
+];
 
 const ClassFilters = () => {
     const router = useRouter();
