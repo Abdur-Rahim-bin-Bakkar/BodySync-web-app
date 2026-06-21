@@ -36,7 +36,7 @@ export default function ManageTrainersPage() {
                 <table className="table w-full border-separate border-spacing-y-3">
                     <thead>
                         <tr className="text-left text-sm md:text-base bg-base-200">
-                            <th className="py-3 px-4">#</th>
+                            <th className="py-3 px-4">No</th>
                             <th className="py-3 px-4">Image</th>
                             <th className="py-3 px-4">Name</th>
                             <th className="py-3 px-4">Email</th>

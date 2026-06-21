@@ -2,6 +2,7 @@
 
 import Swal from "sweetalert2";
 import { removeTrainerRole } from "@/lib/api/removeTrainerRole";
+import { Button } from "@heroui/react";
 
 export default function RemoveTrainerButton({
     trainerId,
@@ -32,11 +33,11 @@ export default function RemoveTrainerButton({
     };
 
     return (
-        <button
+        <Button
             onClick={handleRemove}
-            className="btn btn-error btn-sm"
+            className="btn bg-red-500 btn-sm"
         >
             Demote To User
-        </button>
+        </Button>
     );
 }
