@@ -8,11 +8,11 @@ import { checkFavorite } from "@/lib/api/checkFavorite";
 
 const ClassDetailsPage = async ({ params }) => {
 
+  const { id } = await params;
   const session = await getServerSession()
   if (!session) {
-    redirect('/login')
+    redirect(`/login?callbackUrl=classes/${id}`)
   }
-  const { id } = await params;
   const booked = await getBookingByUserAndClass(session?.user?.id, id)
   const favorite = await checkFavorite(session?.user?.id, id)
 

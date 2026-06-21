@@ -9,11 +9,12 @@ import { getUserById } from "@/lib/api/getUserById";
 
 const ForumIdPage = async ({ params }) => {
   // const session = await getServerSession()
+  const { id } = await params;
   const userData = await getServerSession()
   if (!userData) {
-    redirect('/login')
+    redirect(`/login?callbackUrl=forum/${id}`)
+    return
   }
-  const { id } = await params;
 
   const post = await getForumPostById(id);
   console.log(post)
