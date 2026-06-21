@@ -112,6 +112,7 @@ const ApplyTrainerForm = ({ isApplied, userId }) => {
                 <input
                     type="number"
                     value={experience}
+                    required
                     onChange={(e) => setExperience(e.target.value)}
                     className="w-full mt-1 p-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                     placeholder="e.g. 2"
@@ -126,6 +127,7 @@ const ApplyTrainerForm = ({ isApplied, userId }) => {
                 <input
                     type="text"
                     value={specialty}
+                    required
                     onChange={(e) => setSpecialty(e.target.value)}
                     className="w-full mt-1 p-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                     placeholder="Yoga, Weights, Cardio..."
@@ -138,6 +140,7 @@ const ApplyTrainerForm = ({ isApplied, userId }) => {
                     Description
                 </label>
                 <textarea
+                    required
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     className="w-full mt-1 p-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"

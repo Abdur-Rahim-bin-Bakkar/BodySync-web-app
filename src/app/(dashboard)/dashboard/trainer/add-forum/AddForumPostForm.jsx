@@ -87,6 +87,7 @@ export default function AddForumPostForm() {
           type="text"
           name="title"
           value={form.title}
+          required
           onChange={handleChange}
           placeholder="Enter post title"
           className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#0B0F14] focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -100,6 +101,7 @@ export default function AddForumPostForm() {
         </label>
 
         <textarea
+        required
           name="description"
           value={form.description}
           onChange={handleChange}
@@ -125,6 +127,7 @@ export default function AddForumPostForm() {
           <input
             type="file"
             accept="image/*"
+            required
             onChange={handleImageUpload}
             className="hidden"
           />

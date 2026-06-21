@@ -86,6 +86,7 @@ export default function AddForumPostForm() {
         <input
           type="text"
           name="title"
+          required
           value={form.title}
           onChange={handleChange}
           placeholder="Enter post title"
@@ -102,6 +103,7 @@ export default function AddForumPostForm() {
         <textarea
           name="description"
           value={form.description}
+          required
           onChange={handleChange}
           rows={6}
           placeholder="Write your forum post..."
@@ -125,6 +127,7 @@ export default function AddForumPostForm() {
           <input
             type="file"
             accept="image/*"
+            required
             onChange={handleImageUpload}
             className="hidden"
           />
