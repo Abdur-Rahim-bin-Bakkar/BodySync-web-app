@@ -24,7 +24,7 @@ export default function ForumManagePage() {
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
 
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold">
+          <h1 className="text-3xl md:text-4xl font-bold text-base-content">
             Forum Moderation
           </h1>
           <p className="text-gray-500 mt-2">
@@ -35,6 +35,7 @@ export default function ForumManagePage() {
         <div className="px-5 py-2 rounded-2xl bg-base-200 border border-base-300 text-sm">
           Total Posts: {posts.length}
         </div>
+
       </div>
 
       {/* EMPTY */}
@@ -43,7 +44,7 @@ export default function ForumManagePage() {
           <p className="text-gray-500">No posts found</p>
         </div>
       ) : (
-        <div className="space-y-5">
+        <div className="grid gap-5">
 
           {posts.map((post, index) => (
             <motion.div
@@ -65,33 +66,76 @@ export default function ForumManagePage() {
               "
             >
 
-              {/* TOP ROW */}
+              {/* TOP */}
               <div className="flex items-start justify-between gap-4">
 
-                <div>
-                  <p className="text-xs text-gray-500">
-                    Post #{index + 1}
-                  </p>
+                <div className="flex items-center gap-3">
 
-                  <h3 className="text-lg font-semibold text-base-content">
-                    {post.title}
-                  </h3>
+                  {/* IMAGE */}
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-14 h-14 rounded-xl object-cover border"
+                  />
+
+                  <div>
+                    <h3 className="text-lg font-semibold text-base-content">
+                      {post.title}
+                    </h3>
+
+                    <p className="text-xs text-gray-500">
+                      Post #{index + 1}
+                    </p>
+                  </div>
+
                 </div>
 
-                <motion.div whileTap={{ scale: 0.9 }}>
-                  <DeleteForumPostButton
-                    id={post._id}
-                    setPosts={setPosts}
-                  />
-                </motion.div>
+                <DeleteForumPostButton
+                  id={post._id}
+                  setPosts={setPosts}
+                />
 
               </div>
 
-              {/* META */}
-              <div className="mt-4 flex flex-col sm:flex-row sm:justify-between gap-2 text-sm text-gray-500">
+              {/* AUTHOR */}
+              <div className="mt-4 flex items-center gap-3">
+
+                <img
+                  src={` ${post?.userImage || "https://i.ibb.co/2kR8Q8q/user.png"}`}
+                  className="w-8 h-8 rounded-full border"
+                  alt="author"
+                />
+
+                <div className="text-sm">
+                  <p className="font-medium">
+                    {post.authorName}
+                  </p>
+                  <p className="text-gray-500 text-xs">
+                    {post.authorEmail}
+                  </p>
+                </div>
+
+              </div>
+
+              {/* DESCRIPTION */}
+              <p className="mt-4 text-sm text-gray-600 line-clamp-2">
+                {post.description}
+              </p>
+
+              {/* STATS */}
+              <div className="mt-4 flex flex-wrap gap-4 text-sm text-gray-600">
+
+                <span>❤️ {post.likes}</span>
+                <span>👎 {post.dislikes}</span>
+                <span>💬 {post.commentsCount}</span>
+
+              </div>
+
+              {/* FOOTER */}
+              <div className="mt-4 flex justify-between text-xs text-gray-500">
 
                 <span>
-                  👤 {post.userEmail || "Unknown"}
+                  Role: {post.authorRole}
                 </span>
 
                 <span>
