@@ -11,12 +11,18 @@ export default function LoginPage() {
   const searchParams = useSearchParams();
 
   const googleSignIn = async () => {
-    console.log("click hocche login");
-    const data = await authClient.signIn.social({
-      provider: "google",
+  const res = await authClient.signIn.social({
+    provider: "google",
+  });
+
+  if (res?.user) {
+    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/users/sync`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(res.user),
     });
-    console.log(data, "data");
-  };
+  }
+};
 
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 

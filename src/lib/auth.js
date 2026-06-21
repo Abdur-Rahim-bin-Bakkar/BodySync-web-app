@@ -25,9 +25,24 @@ export const auth = betterAuth({
             role: {
                 default: 'user'
             },
-            status:{
-                default:'active'
+            status: {
+                default: 'active'
             }
         }
+    },
+    databaseHooks: {
+        user: {
+            create: {
+                before: async (user) => {
+                    return {
+                        data: {
+                            ...user,
+                            role: user.role || "user",     // যদি role না থাকে তবে "user" হবে
+                            status: user.status || "active" // যদি status না থাকে তবে "active" হবে
+                        },
+                    };
+                },
+            },
+        },
     }
 });
