@@ -22,6 +22,7 @@ const ClassDetails = ({
 }) => {
     const router = useRouter();
     const session = useUserSessionClient();
+    const isBlocked = session?.user?.status === "blocked";
 
     const userId = session?.user?.id;
     const classId = classData?._id;
@@ -190,14 +191,18 @@ const ClassDetails = ({
                                 <input type="hidden" name="userId" value={userId || 'noid'} />
                                 <section>
                                     <button
-                                        disabled={booked}
-                                        className={`px-8 py-3 rounded-xl font-medium text-white transition ${booked
-                                            ? "bg-gray-400 cursor-not-allowed"
-                                            : "bg-orange-500 hover:bg-orange-600"
+                                        disabled={booked || isBlocked}
+                                        className={`px-8 py-3 rounded-xl font-medium text-white transition ${booked || isBlocked
+                                                ? "bg-gray-400 cursor-not-allowed"
+                                                : "bg-orange-500 hover:bg-orange-600"
                                             }`}
-                                        type="submit" role="link">
-                                        {booked ? "Already Booked" : "Book Now"}
-
+                                        type="submit"
+                                    >
+                                        {isBlocked
+                                            ? "Blocked User"
+                                            : booked
+                                                ? "Already Booked"
+                                                : "Book Now"}
                                     </button>
                                 </section>
                             </form>
