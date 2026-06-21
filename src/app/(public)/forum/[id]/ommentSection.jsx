@@ -4,21 +4,27 @@ import { useState } from "react";
 import CommentItem from "./CommentItem";
 import { addComment } from "@/lib/post/addComment";
 import { useUserSessionClient } from "@/lib/session/client";
+import { toast } from "react-toastify";
 
-const CommentSection = ({ postId,commentsData  }) => {
+const CommentSection = ({ postId, commentsData }) => {
     const [comment, setComment] = useState("");
     const comments = commentsData
     const sesssion = useUserSessionClient()
+    console.log(sesssion?.user?.status, 'd')
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (sesssion?.user?.status === 'blocked') {
+            toast.warning('Your account is blocked by admin')
+            return
+        }
 
         if (!comment.trim()) return;
 
         const newComment = {
             text: comment,
-            user:sesssion?.user
+            user: sesssion?.user
             // createdAt: new Date().toISOString(),
         };
 

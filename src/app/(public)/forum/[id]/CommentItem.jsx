@@ -5,6 +5,7 @@ import { addReply } from "@/lib/post/postCommentReplay";
 import { useUserSessionClient } from "@/lib/session/client";
 import React, { useEffect, useState } from "react";
 import EditComment from "./EditComment";
+import { toast } from "react-toastify";
 
 const CommentItem = ({ comment }) => {
   const [showReplyBox, setShowReplyBox] = useState(false);
@@ -16,6 +17,8 @@ const CommentItem = ({ comment }) => {
   const commentUserId = comment?.user?.id;
 
   const sesssion = useUserSessionClient();
+  // const sesssion = useUserSessionClient()
+  console.log(sesssion?.user?.status, 'd')
 
   // ✨ UPDATE / DELETE handler (pass to EditComment)
   const handleCommentUpdate = (id, text, type) => {
@@ -25,6 +28,10 @@ const CommentItem = ({ comment }) => {
   // ➕ add reply
   const handleReplySubmit = async (e) => {
     e.preventDefault();
+    if (sesssion?.user?.status === 'blocked') {
+      toast.warning('Your account is blocked by admin')
+      return
+    }
 
     if (!reply.trim()) return;
 

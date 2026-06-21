@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { deleteComment } from "@/lib/api/deleteComment";
 import { updateComment } from "@/lib/api/updateComment";
+import { useUserSessionClient } from "@/lib/session/client";
+import { toast } from "react-toastify";
 
 const EditComment = ({
   userId,
@@ -14,9 +16,14 @@ const EditComment = ({
   const [text, setText] = useState(comment?.text || "");
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const sesssion = useUserSessionClient();
 
   // ✏️ UPDATE
   const handleSave = async () => {
+    if (sesssion?.user?.status === 'blocked') {
+      toast.warning('Your account is blocked by admin')
+      return
+    }
     if (!text.trim()) return;
 
     try {
@@ -38,6 +45,10 @@ const EditComment = ({
 
   // 🗑 DELETE
   const handleDelete = async () => {
+    if (sesssion?.user?.status === 'blocked') {
+      toast.warning('Your account is blocked by admin')
+      return
+    }
     try {
       setLoading(true);
 
