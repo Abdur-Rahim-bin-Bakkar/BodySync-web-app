@@ -6,8 +6,8 @@ import Link from "next/link";
 const ClassCard = ({ cls }) => {
   return (
     <div
-      
-     
+
+
       className="group bg-white dark:bg-[#111827] border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden shadow-md transition-all"
     >
       {/* IMAGE */}

@@ -1,6 +1,7 @@
 import { getLatestForumPosts } from "@/lib/api/getLatestPost";
 import React from "react";
 import ForumCard from "@/app/(public)/forum/ForumCard";
+import Link from "next/link";
 
 const LatestPost = async () => {
     const latestPostData = await getLatestForumPosts();
@@ -30,6 +31,13 @@ const LatestPost = async () => {
                         <ForumCard post={post} />
                     </div>
                 ))}
+            </div>
+            <div className="flex justify-center mt-12">
+                <Link href="/forum">
+                    <button className="px-6 py-3 bg-green-500 hover:bg-orange-600 text-white rounded-xl font-semibold transition">
+                        See More Posts
+                    </button>
+                </Link>
             </div>
         </section>
     );

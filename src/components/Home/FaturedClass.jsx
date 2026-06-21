@@ -1,5 +1,6 @@
 import { getFeaturedClasses } from "@/lib/api/geteFaturedClasses";
 import ClassCard from "./ClassCard";
+import Link from "next/link";
 
 const FeaturedClasses = async () => {
     const data = await getFeaturedClasses();
@@ -26,6 +27,13 @@ const FeaturedClasses = async () => {
                     ))}
 
                 </div>
+            </div>
+            <div className="flex justify-center mt-12">
+                <Link href="/classes">
+                    <button className="px-6 py-3 bg-green-500 hover:bg-orange-600 text-white rounded-xl font-semibold transition">
+                        See More Posts
+                    </button>
+                </Link>
             </div>
 
         </section>

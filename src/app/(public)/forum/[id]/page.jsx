@@ -4,6 +4,7 @@ import { getCommentsByPostId } from "@/lib/api/getComment";
 import { getServerSession } from "@/lib/session/server";
 import LikeOrDislike from "./LikeOrDislike";
 import { redirect } from "next/navigation";
+import { getUserById } from "@/lib/api/getUserById";
 // import CommentSection from "./CommentSection";
 
 const ForumIdPage = async ({ params }) => {
@@ -15,10 +16,13 @@ const ForumIdPage = async ({ params }) => {
   const { id } = await params;
 
   const post = await getForumPostById(id);
+  console.log(post)
   const commentsData = await getCommentsByPostId(id)
-  const postId = post?._id
+  const postUserInfo = await getUserById(post?.userId)
+  // const postId = post?._id
   const userId = await userData?.user?.id
-  console.log(postId, 'post')
+  console.log(postUserInfo?.data, 'postfgf')
+  const userInfo = postUserInfo?.data
 
 
 
@@ -28,19 +32,37 @@ const ForumIdPage = async ({ params }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* Image */}
+
       <img
         src={post.image}
         alt={post.title}
         className="w-full h-[400px] object-cover rounded-xl"
       />
+      <div className="flex items-center gap-2 mt-5">
+        <img
+          src={userInfo?.image || "https://i.ibb.co/2kR3Q3K/default-user.png"}
+          alt="user"
+          className="w-10 h-10 rounded-full object-cover border"
+        />
+
+        <div className="leading-tight">
+          <p className="text-xs font-medium text-gray-700 dark:text-gray-200">
+            {userInfo?.name || post.authorName || "Unknown"}
+          </p>
+          <p className="text-[10px] text-gray-400 capitalize">
+            {userInfo?.role || post.authorRole || "user"}
+          </p>
+        </div>
+        <p className="text-sm text-gray-500 mt-2">
+          • {new Date(post.createdAt).toDateString()}
+        </p>
+      </div>
 
       {/* Title */}
       <h1 className="text-3xl font-bold mt-6">{post.title}</h1>
 
       {/* Author */}
-      <p className="text-sm text-gray-500 mt-2">
-        By {post.authorName} • {new Date(post.createdAt).toDateString()}
-      </p>
+
 
       {/* Description */}
       <p className="mt-6 text-gray-700 leading-relaxed">
