@@ -78,12 +78,12 @@ const Sidebar = () => {
       icon: <FaPlusCircle />,
       href: "/dashboard/admin/add-forum",
     },
-     {
+    {
       name: "MY Forum",
       icon: <FaRegNewspaper />,
       href: "/dashboard/admin/my-forum",
     },
-     {
+    {
       name: "Forum Management",
       icon: <FaTrashAlt />,
       href: "/dashboard/admin/forum-management",
@@ -93,7 +93,7 @@ const Sidebar = () => {
       icon: <FaMoneyCheckAlt />,
       href: "/dashboard/admin/transactions",
     },
-   
+
   ];
   if (role === 'user') {
     menuItems = userLinks
@@ -108,25 +108,23 @@ const Sidebar = () => {
   return (
     <>
       {/* 🔥 TOP BAR (mobile) */}
-      <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 border-b bg-white dark:bg-[#0B0F14]">
         <button onClick={() => setOpen(true)}>
           <FaBars className="text-2xl" />
         </button>
       </div>
 
       {/* 💻 DESKTOP SIDEBAR */}
-      <div className="hidden lg:flex h-screen">
-
-        {/* Sidebar */}
+      <div className="hidden lg:block">
         <motion.div
           animate={{ width: collapsed ? 80 : 288 }}
           transition={{ duration: 0.3 }}
-          className="h-full bg-white dark:bg-[#0B0F14] border-r flex flex-col relative"
+          className="fixed left-0 top-0 h-screen bg-white dark:bg-[#0B0F14] border-r flex flex-col relative z-40"
         >
           {/* Collapse button */}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="absolute -right-3 top-6 bg-orange-500 text-white p-1 rounded-full shadow"
+            className="absolute -right-3 top-6 bg-orange-500 text-white p-1 rounded-full shadow z-50"
           >
             {collapsed ? <FaAngleRight /> : <FaAngleLeft />}
           </button>
@@ -148,19 +146,19 @@ const Sidebar = () => {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 lg:hidden"
           >
-            {/* overlay */}
+            {/* Overlay */}
             <div
               className="absolute inset-0 bg-black/50"
               onClick={() => setOpen(false)}
             />
 
-            {/* drawer */}
+            {/* Drawer */}
             <motion.div
               initial={{ x: -300 }}
               animate={{ x: 0 }}
               exit={{ x: -300 }}
               transition={{ duration: 0.3 }}
-              className="relative z-50"
+              className="relative z-50 h-screen bg-white dark:bg-[#0B0F14]"
             >
               <SidebarContent
                 pathname={pathname}

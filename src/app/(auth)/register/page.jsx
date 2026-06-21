@@ -5,9 +5,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Upload } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function RegisterPage() {
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl") || "/";
     const googleSignIn = async () => {
         const data = await authClient.signIn.social({
             provider: "google",
@@ -297,7 +299,7 @@ export default function RegisterPage() {
 
                     <p className="text-center text-gray-400 text-sm mt-5">
                         Already have account?{" "}
-                        <Link href="/login" className="text-[#FF6A1C]">
+                        <Link href={`/login?callbackUrl=${callbackUrl}`} className="text-[#FF6A1C]">
                             Login
                         </Link>
                     </p>

@@ -167,7 +167,7 @@ export default function LoginPage() {
           {/* REGISTER LINK */}
           <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-5">
             Don’t have an account?{" "}
-            <Link href="/register" className="text-[#FF6A1C]">
+            <Link href={`/register?callbackUrl=${callbackUrl}`} className="text-[#FF6A1C]">
               Register
             </Link>
           </p>

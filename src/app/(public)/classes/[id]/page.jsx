@@ -12,6 +12,7 @@ const ClassDetailsPage = async ({ params }) => {
   const session = await getServerSession()
   if (!session) {
     redirect(`/login?callbackUrl=classes/${id}`)
+    return
   }
   const booked = await getBookingByUserAndClass(session?.user?.id, id)
   const favorite = await checkFavorite(session?.user?.id, id)
