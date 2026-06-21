@@ -1,7 +1,10 @@
 "use client";
+import { useUserSessionClient } from "@/lib/session/client";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const LikeOrDislike = ({ userId, post }) => {
+  const session = useUserSessionClient()
   const postId = post?._id;
   console.log(postId, userId, 'form fefdsf')
 
@@ -9,6 +12,10 @@ const LikeOrDislike = ({ userId, post }) => {
   const [dislikes, setDislikes] = useState(post.dislikes || 0);
 
   const handleLike = async () => {
+    if (session?.user?.status === 'blocked') {
+      toast.warning('blocked by admin')
+      return
+    }
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URI}/post/reaction`,
       {
@@ -29,6 +36,10 @@ const LikeOrDislike = ({ userId, post }) => {
   };
 
   const handleDislike = async () => {
+    if (session?.user?.status === 'blocked') {
+      toast.warning('blocked by admin')
+      return
+    }
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URI}/post/reaction`,
       {
