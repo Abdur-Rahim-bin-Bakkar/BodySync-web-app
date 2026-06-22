@@ -1,3 +1,6 @@
+'use server'
+import { authHeader } from "../header/header";
+
 const base = process.env.NEXT_PUBLIC_SERVER_URI;
 
 export const approveClass = async (id) => {
@@ -17,6 +20,9 @@ export const rejectClass = async (id) => {
 export const deleteClass = async (id) => {
     const res = await fetch(`${base}/classes/${id}`, {
         method: "DELETE",
+        headers: {
+            ...(await authHeader()),
+        }
     });
     return res.json();
 };

@@ -1,3 +1,6 @@
+'use server'
+import { authHeader } from "../header/header";
+
 export const getForumPosts = async (search = "") => {
     try {
         const res = await fetch(
@@ -31,6 +34,7 @@ export const getForumPostById = async (id) => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                 ...(await authHeader()),
             },
             cache: "no-store", // Next.js server component এর জন্য useful
         });

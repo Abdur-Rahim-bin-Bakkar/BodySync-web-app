@@ -1,3 +1,6 @@
+'use server'
+import { authHeader } from "../header/header";
+
 export const createClass = async (classData) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URI}/class`,
@@ -5,6 +8,7 @@ export const createClass = async (classData) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(await authHeader()),
       },
       body: JSON.stringify(classData),
     }

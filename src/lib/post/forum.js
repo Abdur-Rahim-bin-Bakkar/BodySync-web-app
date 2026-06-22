@@ -1,4 +1,5 @@
 'use server'
+import { authHeader } from "../header/header";
 import { getServerSession } from "../session/server";
 
 export const createForumPost = async (forumData) => {
@@ -18,6 +19,7 @@ export const createForumPost = async (forumData) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                 ...(await authHeader()),
             },
             body: JSON.stringify(newForumData),
         }

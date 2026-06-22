@@ -1,3 +1,7 @@
+'use server'
+
+import { authHeader } from "../header/header";
+
 const BASE_URL =
   process.env.NEXT_PUBLIC_SERVER_URI || "http://localhost:5000";
 
@@ -8,6 +12,10 @@ export const getClassStudents = async (classId) => {
       {
         method: "GET",
         cache: "no-store",
+        headers: {
+          ...(await authHeader()),
+        }
+
       }
     );
 

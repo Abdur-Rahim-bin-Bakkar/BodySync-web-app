@@ -1,3 +1,6 @@
+'use server'
+import { authHeader } from "../header/header";
+
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
 
 export const getUserStats = async (userId) => {
@@ -48,7 +51,11 @@ export const getUserTotalStats = async (userId) => {
 
   try {
     const res = await fetch(
-      `${BASE_URL}/users/${userId}/total-stats`,
+      `${BASE_URL}/users/${userId}/total-stats`,{
+        headers:{
+          ...(await authHeader()),
+        }
+      },
       {
         method: "GET",
         cache: "no-store",

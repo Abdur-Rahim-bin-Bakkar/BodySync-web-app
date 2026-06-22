@@ -36,9 +36,12 @@ export default function ActionButtons({ id, setClasses }) {
         }
 
         if (action === "delete") {
-            toast.warning('class approved')
 
-            await deleteClass(id);
+            const deleteResult = await deleteClass(id);
+            console.log(deleteResult,'delete result')
+            if (deleteResult?.success > 0) {
+                toast.warning("Class deleted successfully.");
+            }
 
             setClasses((prev) =>
                 prev.filter((c) => c._id !== id)

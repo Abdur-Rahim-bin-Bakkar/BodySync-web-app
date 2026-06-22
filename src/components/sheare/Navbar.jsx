@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 import { authClient } from "@/lib/auth-client";
-import { useUserSessionClient } from "@/lib/session/client";
+import { useClientToken, useUserSessionClient } from "@/lib/session/client";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
@@ -26,6 +26,8 @@ export default function Navbar() {
 
   const session = useUserSessionClient();
   const user = session?.user;
+  const token = useClientToken()
+  console.log(token, 'token')
 
   useEffect(() => {
     setMounted(true);
