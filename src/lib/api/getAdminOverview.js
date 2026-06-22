@@ -1,3 +1,7 @@
+'use server'
+
+import { authHeader } from "../header/header";
+
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
 
 // Admin dashboard stats fetch function
@@ -6,6 +10,9 @@ export const getAdminOverviewStats = async () => {
         const res = await fetch(`${BASE_URL}/admin/overview-stats`, {
             method: "GET",
             cache: "no-store",
+            headers: {
+                ...(await authHeader()),
+            }
         });
 
         if (!res.ok) {
