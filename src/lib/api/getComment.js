@@ -1,8 +1,15 @@
+'use server'
+
+import { authHeader } from "../header/header";
+
 export const getCommentsByPostId = async (postId) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/forum/${postId}/comments`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
+            headers: {
+                ...(await authHeader()),
+            }
         },
         cache: "no-store",
     });
