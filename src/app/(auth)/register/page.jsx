@@ -15,13 +15,7 @@ export default function RegisterPage() {
             provider: "google",
         });
 
-        if (res?.user) {
-            await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/users/sync`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(res.user),
-            });
-        }
+      
     };
     const router = useRouter()
     const [form, setForm] = useState({
