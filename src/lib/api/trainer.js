@@ -1,8 +1,15 @@
+'use server'
+import { authHeader } from "../header/header";
+
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
 
 // get applications
 export const getApplications = async () => {
-    const res = await fetch(`${BASE_URL}/apply-trainer`);
+    const res = await fetch(`${BASE_URL}/apply-trainer`, {
+        headers: {
+            ...(await authHeader()),
+        }
+    });
     return res.json();
 };
 
@@ -14,6 +21,7 @@ export const approveTrainer = async (id, feedback) => {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
+                ...(await authHeader()),
             },
             body: JSON.stringify({ feedback }),
         }
@@ -30,6 +38,7 @@ export const rejectTrainer = async (id, feedback) => {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
+                ...(await authHeader()),
             },
             body: JSON.stringify({ feedback }),
         }

@@ -4,17 +4,21 @@ import { authHeader } from "../header/header";
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
 
 export const getUserStats = async (userId) => {
-    const res = await fetch(`${BASE_URL}/users/${userId}/stats`, {
-        cache: "no-store",
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-        throw new Error(data.message || "Failed to fetch user stats");
+  const res = await fetch(`${BASE_URL}/users/${userId}/stats`, {
+    cache: "no-store",
+    headers: {
+      ...(await authHeader()),
     }
 
-    return data.data;
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to fetch user stats");
+  }
+
+  return data.data;
 };
 
 // const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI || "http://localhost:5000";
@@ -51,11 +55,11 @@ export const getUserTotalStats = async (userId) => {
 
   try {
     const res = await fetch(
-      `${BASE_URL}/users/${userId}/total-stats`,{
-        headers:{
-          ...(await authHeader()),
-        }
-      },
+      `${BASE_URL}/users/${userId}/total-stats`, {
+      headers: {
+        ...(await authHeader()),
+      }
+    },
       {
         method: "GET",
         cache: "no-store",

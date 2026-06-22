@@ -1,3 +1,7 @@
+'use server'
+
+import { authHeader } from "@/lib/header/header";
+
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
 
 export const incrementBookingCount = async (classId) => {
@@ -5,6 +9,10 @@ export const incrementBookingCount = async (classId) => {
         `${BASE_URL}/classes/${classId}/increment-booking`,
         {
             method: "PATCH",
+            headers: {
+                ...(await authHeader()),
+            }
+
         }
     );
 

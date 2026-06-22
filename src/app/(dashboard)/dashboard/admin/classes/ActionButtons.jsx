@@ -23,7 +23,7 @@ export default function ActionButtons({ id, setClasses }) {
 
         if (action === "reject") {
             await rejectClass(id);
-            toast.warning('class approved')
+            toast.warning('class reject')
 
 
             setClasses((prev) =>

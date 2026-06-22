@@ -6,6 +6,9 @@ const base = process.env.NEXT_PUBLIC_SERVER_URI;
 export const approveClass = async (id) => {
     const res = await fetch(`${base}/classes/${id}/approve`, {
         method: "PATCH",
+        headers: {
+            ...(await authHeader()),
+        }
     });
     return res.json();
 };
@@ -13,6 +16,9 @@ export const approveClass = async (id) => {
 export const rejectClass = async (id) => {
     const res = await fetch(`${base}/classes/${id}/reject`, {
         method: "PATCH",
+        headers: {
+            ...(await authHeader()),
+        }
     });
     return res.json();
 };

@@ -1,3 +1,6 @@
+'use server'
+import { authHeader } from "../header/header";
+
 export const applyTrainer = async ({
   userId,
   experience,
@@ -8,6 +11,9 @@ export const applyTrainer = async ({
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+
+      ...(await authHeader()),
+
     },
     body: JSON.stringify({
       userId,
