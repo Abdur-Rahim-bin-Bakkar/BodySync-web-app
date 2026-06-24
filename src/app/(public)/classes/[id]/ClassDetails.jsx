@@ -196,7 +196,7 @@ const ClassDetails = ({
                                 <section>
                                     <button
                                         disabled={booked || isBlocked}
-                                        className={`px-8 py-3 rounded-xl font-medium text-white transition ${booked || isBlocked
+                                        className={`px-8 py-3 cursor-pointer rounded-xl font-medium text-white transition ${booked || isBlocked
                                             ? "bg-gray-400 cursor-not-allowed"
                                             : "bg-orange-500 hover:bg-orange-600"
                                             }`}
@@ -215,7 +215,7 @@ const ClassDetails = ({
                             <button
                                 onClick={handleFavorite}
                                 disabled={loading}
-                                className={`px-6 py-3 rounded-xl border flex items-center gap-2 transition ${isFavorite
+                                className={`px-6 cursor-pointer py-3 rounded-xl border flex items-center gap-2 transition ${isFavorite
                                     ? "bg-orange-500 text-white border-orange-500"
                                     : "border-orange-500 text-orange-500 hover:bg-orange-50"
                                     }`}

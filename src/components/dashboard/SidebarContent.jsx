@@ -29,7 +29,11 @@ const SidebarContent = ({ pathname, menuItems, onClick, collapsed }) => {
             {/* Profile */}
             <div className="p-4 border-b flex items-center gap-3 justify-center">
                 {user?.image ? (
-                    <img
+                    <Image
+                        width={400}
+                        height={300}
+                        alt="user image"
+                        unoptimized
                         src={user.image}
                         className="w-10 h-10 rounded-full"
                     />

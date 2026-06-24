@@ -49,7 +49,7 @@ const CommentSection = ({ postId, commentsData }) => {
                     placeholder="Write a comment..."
                     className="flex-1 border p-2 rounded"
                 />
-                <button className="px-4 py-2 bg-blue-600 text-white rounded">
+                <button className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer">
                     Post
                 </button>
             </form>

@@ -6,6 +6,7 @@ import { useUserSessionClient } from "@/lib/session/client";
 import React, { useEffect, useState } from "react";
 import EditComment from "./EditComment";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 const CommentItem = ({ comment }) => {
   const [showReplyBox, setShowReplyBox] = useState(false);
@@ -63,7 +64,10 @@ const CommentItem = ({ comment }) => {
       {/* 👤 USER HEADER */}
       <div className="flex items-start gap-3">
 
-        <img
+        <Image
+          width={400}
+          height={300}
+          unoptimized
           src={comment?.user?.image || "https://via.placeholder.com/40"}
           alt="user"
           className="w-10 h-10 rounded-full object-cover border"
@@ -112,7 +116,7 @@ const CommentItem = ({ comment }) => {
       {/* 🔁 REPLY BUTTON */}
       <button
         onClick={() => setShowReplyBox(!showReplyBox)}
-        className="text-blue-600 text-sm hover:underline"
+        className="text-blue-600 text-sm hover:underline cursor-pointer"
       >
         Reply
       </button>
@@ -141,7 +145,10 @@ const CommentItem = ({ comment }) => {
           replies.map((r, i) => (
             <div key={i} className="flex items-start gap-2">
 
-              <img
+              <Image
+                width={400}
+                height={300}
+                unoptimized
                 src={r?.user?.image || "https://via.placeholder.com/30"}
                 alt="user"
                 className="w-6 h-6 rounded-full object-cover border"

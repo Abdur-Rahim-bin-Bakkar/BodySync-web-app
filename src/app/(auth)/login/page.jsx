@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -156,7 +157,10 @@ export default function LoginPage() {
                        dark:border-white/10 dark:text-white
                        py-2 rounded-md hover:border-[#FF6A1C] transition"
           >
-            <img
+            <Image
+              width={400}
+              height={300}
+              unoptimized
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               className="w-5 h-5"
               alt="google"

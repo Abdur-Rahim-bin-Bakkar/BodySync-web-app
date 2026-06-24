@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { FaTrash } from "react-icons/fa";
 import { removeFavorite } from "@/lib/deletes/removeFavorite";
 import { getClassById } from "@/lib/api/getClassDetails";
+import Image from "next/image";
 
 const FavoriteCard = ({ item }) => {
     const router = useRouter();
@@ -73,7 +74,10 @@ const FavoriteCard = ({ item }) => {
         <div className="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition bg-white dark:bg-gray-900">
 
             {/* IMAGE */}
-            <img
+            <Image
+                width={400}
+                height={300}
+                unoptimized
                 src={classData?.image}
                 alt={classData?.className}
                 className="h-44 w-full object-cover"

@@ -1,4 +1,5 @@
 import { getServerSession } from "@/lib/session/server";
+import Image from "next/image";
 import Link from "next/link";
 import { FaBookmark, FaHeart, FaUserCircle } from "react-icons/fa";
 
@@ -42,7 +43,10 @@ export default async function UserOverview({ stats, trainerApplication }) {
                 <div className="bg-white dark:bg-[#0B0F14] border border-gray-200 dark:border-gray-800 rounded-2xl p-6 flex items-center gap-5">
 
                     {session?.user?.image ? (
-                        <img
+                        <Image
+                            width={400}
+                            height={300}
+                            unoptimized
                             src={session?.user.image}
                             alt="profile"
                             className="w-16 h-16 rounded-full object-cover"

@@ -5,6 +5,7 @@ import { getServerSession } from "@/lib/session/server";
 import LikeOrDislike from "./LikeOrDislike";
 import { redirect } from "next/navigation";
 import { getUserById } from "@/lib/api/getUserById";
+import Image from "next/image";
 // import CommentSection from "./CommentSection";
 
 const ForumIdPage = async ({ params }) => {
@@ -34,13 +35,19 @@ const ForumIdPage = async ({ params }) => {
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* Image */}
 
-      <img
+      <Image
+        width={400}
+        height={300}
+        unoptimized
         src={post.image}
         alt={post.title}
         className="w-full h-[400px] object-cover rounded-xl"
       />
       <div className="flex items-center gap-2 mt-5">
-        <img
+        <Image
+          width={400}
+          height={300}
+          unoptimized
           src={userInfo?.image || "https://i.ibb.co/2kR3Q3K/default-user.png"}
           alt="user"
           className="w-10 h-10 rounded-full object-cover border"

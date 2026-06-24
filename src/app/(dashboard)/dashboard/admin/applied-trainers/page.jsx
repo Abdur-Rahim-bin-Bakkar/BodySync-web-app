@@ -9,6 +9,7 @@ import {
 
 import { toast } from "sonner";
 import { getUserById } from "@/lib/api/getUserById";
+import Image from "next/image";
 
 export default function AppliedTrainersPage() {
     const [apps, setApps] = useState([]);
@@ -105,7 +106,10 @@ export default function AppliedTrainersPage() {
                                     <td className="p-3">
                                         <div className="flex items-center gap-3">
 
-                                            <img
+                                            <Image
+                                                width={400}
+                                                height={300}
+                                                unoptimized
                                                 src={user?.image || "https://via.placeholder.com/40"}
                                                 className="w-10 h-10 rounded-full object-cover border"
                                                 alt="user"
@@ -130,13 +134,12 @@ export default function AppliedTrainersPage() {
                                     {/* STATUS */}
                                     <td className="p-3">
                                         <span
-                                            className={`px-3 py-1 text-sm rounded-full font-medium inline-block ${
-                                                app.status === "Approved"
+                                            className={`px-3 py-1 text-sm rounded-full font-medium inline-block ${app.status === "Approved"
                                                     ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                                                     : app.status === "Rejected"
-                                                    ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-                                                    : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-                                            }`}
+                                                        ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                                                        : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
+                                                }`}
                                         >
                                             {app.status || "Pending"}
                                         </span>

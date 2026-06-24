@@ -1,4 +1,5 @@
 // components/admin/AdminProfileCard.jsx
+import Image from "next/image";
 import React from "react";
 
 const AdminProfileCard = ({ user }) => {
@@ -18,7 +19,10 @@ const AdminProfileCard = ({ user }) => {
                 </span>
             </div>
 
-            <img
+            <Image
+                width={400}
+                height={300}
+                unoptimized
                 src={user?.image || "/avatar.png"}
                 className="w-14 h-14 rounded-full object-cover border border-gray-200 dark:border-gray-600"
                 alt="admin"

@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { getTransactions } from "@/lib/api/getTransactions";
 import { getUserById } from "@/lib/api/getUserById";
+import Image from "next/image";
 
 export default async function TransactionsPage() {
   const result = await getTransactions();
@@ -63,7 +64,10 @@ export default async function TransactionsPage() {
                 >
                   {/* USER */}
                   <div className="flex items-center gap-3 mb-2">
-                    <img
+                    <Image
+                      width={400}
+                      height={300}
+                      unoptimized
                       src={user?.image || "https://via.placeholder.com/40"}
                       className="w-10 h-10 rounded-full object-cover border"
                       alt="user"
@@ -142,7 +146,10 @@ export default async function TransactionsPage() {
                       <td className="p-4">
                         <div className="flex items-center gap-3">
 
-                          <img
+                          <Image
+                            width={400}
+                            height={300}
+                            unoptimized
                             src={user?.image || "https://via.placeholder.com/40"}
                             className="w-10 h-10 rounded-full border object-cover"
                             alt="user"

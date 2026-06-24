@@ -1,5 +1,6 @@
 import { getUserContentStats, getUserTotalStats } from "@/lib/api/counts";
 import { getServerSession } from "@/lib/session/server";
+import Image from "next/image";
 import {
   FaUserCircle,
   FaChalkboardTeacher,
@@ -17,7 +18,7 @@ export default async function OverviewPage() {
   const totalClassesCreated = counts?.totalClasses || 0;
   const totalStudentsEnrolled = counts?.totalBookings || 0; // future-ready
   const totalPosts = counts?.forumCount || 0;
-  console.log(counts,'ha')
+  console.log(counts, 'ha')
 
   return (
     <div className="p-6 space-y-6">
@@ -80,7 +81,10 @@ export default async function OverviewPage() {
       <div className="bg-white dark:bg-[#0B0F14] border border-gray-200 dark:border-gray-800 rounded-2xl p-6 flex items-center gap-5">
 
         {user?.image ? (
-          <img
+          <Image
+            width={400}
+            height={300}
+            unoptimized
             src={user.image}
             alt="profile"
             className="w-16 h-16 rounded-full object-cover"

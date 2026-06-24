@@ -1,6 +1,7 @@
 "use client";
 
 import { updateClass } from "@/lib/patch/updateClass";
+import Image from "next/image";
 import { useState } from "react";
 // import { updateClass } from "@/lib/update/updateClass";
 import toast from "react-hot-toast";
@@ -204,7 +205,10 @@ const UpdateClassModal = ({
                     {/* Image */}
                     {/* Image Preview */}
                     <div className="space-y-3">
-                        <img
+                        <Image
+                            width={400}
+                            height={300}
+                            unoptimized
                             src={previewImage}
                             alt="Class Preview"
                             className="w-full h-52 object-cover rounded-xl border"

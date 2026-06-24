@@ -48,7 +48,10 @@ const MyForumCard = ({ post }) => {
 
                 {/* IMAGE */}
                 <div className="w-full md:w-64 h-52 overflow-hidden rounded-xl">
-                    <img
+                    <Image
+                        width={400}
+                        height={300}
+                        unoptimized
                         src={post?.image}
                         alt={post?.title}
                         className="w-full object-cover"

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { getAllForumPosts } from "@/lib/api/getAllForumPosts";
 import DeleteForumPostButton from "./DeleteForumPostButton";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function ForumManagePage() {
   const [posts, setPosts] = useState([]);
@@ -72,7 +73,10 @@ export default function ForumManagePage() {
                 <div className="flex items-center gap-3">
 
                   {/* IMAGE */}
-                  <img
+                  <Image
+                    width={400}
+                    height={300}
+                    unoptimized
                     src={post.image}
                     alt={post.title}
                     className="w-14 h-14 rounded-xl object-cover border"
@@ -100,8 +104,11 @@ export default function ForumManagePage() {
               {/* AUTHOR */}
               <div className="mt-4 flex items-center gap-3">
 
-                <img
-                  src={` ${post?.userImage || "https://i.ibb.co/2kR8Q8q/user.png"}`}
+                <Image
+                  width={400}
+                  height={300}
+                  unoptimized
+                  src={`${post?.userImage || "https://i.ibb.co/2kR8Q8q/user.png"}`}
                   className="w-8 h-8 rounded-full border"
                   alt="author"
                 />

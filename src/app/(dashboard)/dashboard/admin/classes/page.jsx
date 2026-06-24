@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { getAdminClasses } from "@/lib/api/getAdminClasses";
 import { getUserById } from "@/lib/api/getUserById";
 import ActionButtons from "./ActionButtons";
+import Image from "next/image";
 
 export default function ManageClassesPage() {
     const [classes, setClasses] = useState([]);
@@ -96,7 +97,10 @@ export default function ManageClassesPage() {
                                     <td className="p-4 align-middle">
                                         <div className="flex items-center gap-3 min-w-[180px]">
 
-                                            <img
+                                            <Image
+                                                width={400}
+                                                height={300}
+                                                unoptimized
                                                 src={
                                                     user?.image ||
                                                     "https://via.placeholder.com/40"
@@ -119,13 +123,12 @@ export default function ManageClassesPage() {
                                     {/* STATUS */}
                                     <td className="p-4 align-middle">
                                         <span
-                                            className={`px-3 py-1 text-xs rounded-full font-medium inline-block whitespace-nowrap ${
-                                                cls.status === "approved"
+                                            className={`px-3 py-1 text-xs rounded-full font-medium inline-block whitespace-nowrap ${cls.status === "approved"
                                                     ? "bg-green-100 text-green-700"
                                                     : cls.status === "rejected"
-                                                    ? "bg-red-100 text-red-700"
-                                                    : "bg-yellow-100 text-yellow-700"
-                                            }`}
+                                                        ? "bg-red-100 text-red-700"
+                                                        : "bg-yellow-100 text-yellow-700"
+                                                }`}
                                         >
                                             {cls.status || "pending"}
                                         </span>

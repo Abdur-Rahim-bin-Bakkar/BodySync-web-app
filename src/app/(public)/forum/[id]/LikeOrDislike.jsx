@@ -64,14 +64,14 @@ const LikeOrDislike = ({ userId, post }) => {
       <div className="flex gap-4 mt-6">
         <button
           onClick={handleLike}
-          className="px-4 py-2 bg-green-100 rounded"
+          className="px-4 py-2 bg-green-100 rounded cursor-pointer text-green-800"
         >
           👍 {likes}
         </button>
 
         <button
           onClick={handleDislike}
-          className="px-4 py-2 bg-red-100 rounded"
+          className="px-4 py-2 bg-red-100 rounded text-red-800 cursor-pointer"
         >
           👎 {dislikes}
         </button>

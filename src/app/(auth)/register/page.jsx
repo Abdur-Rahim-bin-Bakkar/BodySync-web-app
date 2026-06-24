@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Upload } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 export default function RegisterPage() {
     const searchParams = useSearchParams();
@@ -15,7 +16,7 @@ export default function RegisterPage() {
             provider: "google",
         });
 
-      
+
     };
     const router = useRouter()
     const [form, setForm] = useState({
@@ -263,7 +264,10 @@ export default function RegisterPage() {
                         {/* IMAGE PREVIEW */}
                         {preview && (
                             <div className="flex justify-center">
-                                <img
+                                <Image
+                                    width={400}
+                                    height={300}
+                                    unoptimized
                                     src={preview}
                                     alt="preview"
                                     className="h-20 w-20 rounded-full object-cover border border-[#FF6A1C]"
@@ -291,7 +295,10 @@ export default function RegisterPage() {
                         onClick={googleSignIn}
                         className="w-full mt-4 flex items-center justify-center gap-2 border border-white/10 py-2 rounded-md hover:border-[#FF6A1C] transition"
                     >
-                        <img
+                        <Image
+                            width={400}
+                            height={300}
+                            unoptimized
                             src="https://www.svgrepo.com/show/475656/google-color.svg"
                             className="w-5 h-5"
                             alt="google"

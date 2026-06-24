@@ -7,6 +7,7 @@ import { deleteClass } from "@/lib/deletes/deleteClass";
 import { getClassStudents } from "@/lib/api/getClassStudents";
 import UpdateClassModal from "./UpdateClassModal";
 import DeleteModal from "./DeleteModal";
+import Image from "next/image";
 
 const MyClassCard = ({ cls, onUpdate }) => {
   const [openStudents, setOpenStudents] = useState(false);
@@ -45,7 +46,11 @@ const MyClassCard = ({ cls, onUpdate }) => {
 
         {/* LEFT */}
         <div className="flex gap-4 items-center">
-          <img
+          <Image
+            width={400}
+            height={300}
+            unoptimized
+            alt="image"
             src={cls.image}
             className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover"
           />
@@ -106,7 +111,11 @@ const MyClassCard = ({ cls, onUpdate }) => {
               <div className="space-y-3">
                 {students.map((s, i) => (
                   <div key={i} className="flex items-center gap-3 border-b pb-2">
-                    <img
+                    <Image
+                      width={400}
+                      height={300}
+                      unoptimized
+                      alt="image"
                       src={s.user?.image || "https://via.placeholder.com/40"}
                       className="w-10 h-10 rounded-full object-cover"
                     />

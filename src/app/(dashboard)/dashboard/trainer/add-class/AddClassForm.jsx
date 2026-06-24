@@ -5,6 +5,7 @@ import { UploadCloud, ImageIcon } from "lucide-react";
 import { useUserSessionClient } from "@/lib/session/client";
 import { createClass } from "@/lib/post/class";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function AddClassForm() {
   const router = useRouter()
@@ -302,7 +303,10 @@ export default function AddClassForm() {
               </span>
             </div>
 
-            <img
+            <Image
+              width={400}
+              height={300}
+              unoptimized
               src={image}
               alt="Preview"
               className="w-full h-72 object-cover"

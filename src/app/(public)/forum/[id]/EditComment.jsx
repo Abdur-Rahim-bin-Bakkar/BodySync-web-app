@@ -76,14 +76,14 @@ const EditComment = ({
         <div className="flex gap-3 items-center">
           <button
             onClick={() => setIsEditing(true)}
-            className="text-sm text-blue-600 hover:underline"
+            className="text-sm text-blue-600 hover:underline cursor-pointer"
           >
             Edit
           </button>
 
           <button
             onClick={() => setShowModal(true)}
-            className="text-sm text-red-600 hover:underline"
+            className="text-sm text-red-600 cursor-pointer hover:underline"
           >
             Delete
           </button>

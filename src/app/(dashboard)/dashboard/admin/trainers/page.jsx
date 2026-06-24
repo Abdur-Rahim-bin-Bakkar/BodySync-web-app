@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getAllTrainers } from "@/lib/api/getAllTrainers";
 import RemoveTrainerButton from "./RemoveTrainerButton";
+import Image from "next/image";
 
 export default function ManageTrainersPage() {
     const [trainers, setTrainers] = useState([]);
@@ -63,7 +64,10 @@ export default function ManageTrainersPage() {
                                 </td>
 
                                 <td className="px-4 py-4">
-                                    <img
+                                    <Image
+                                        width={400}
+                                        height={300}
+                                        unoptimized
                                         src={trainer.image}
                                         alt={trainer.name}
                                         className="w-12 h-12 rounded-full object-cover border"

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   FaXTwitter,
@@ -21,7 +22,10 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start">
             <div className="flex items-center gap-2 mb-3 group cursor-pointer">
 
-              <img
+              <Image
+                width={400}
+                height={300}
+                unoptimized
                 src="/images/logo.png"
                 alt="BodySync Logo"
                 className="h-10 w-10 rounded-full transition-transform duration-300 group-hover:scale-110"

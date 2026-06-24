@@ -35,7 +35,7 @@ const ForumCard = ({ post }) => {
       whileHover={{ y: -8 }}
       className="bg-white dark:bg-[#111827] rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 transition-all duration-300 h-full flex flex-col relative"
     >
-    
+
       <Image src={post.image}
         alt={post.title}
         className="w-full h-56 object-cover hover:scale-110 duration-500"
@@ -60,7 +60,10 @@ const ForumCard = ({ post }) => {
 
         {/* 👤 USER PROFILE */}
         <div className="flex items-center gap-2">
-          <img
+          <Image
+            width={400}
+            height={300}
+            unoptimized
             src={postUserInfo?.image || "https://i.ibb.co/2kR3Q3K/default-user.png"}
             alt="user"
             className="w-7 h-7 rounded-full object-cover border"

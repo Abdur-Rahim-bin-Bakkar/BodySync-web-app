@@ -5,6 +5,7 @@ import { UploadCloud, ImageIcon } from "lucide-react";
 import { useUserSessionClient } from "@/lib/session/client";
 import { createForumPost } from "@/lib/post/forum";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function AddForumPostForm() {
   const [loading, setLoading] = useState(false);
@@ -146,7 +147,10 @@ export default function AddForumPostForm() {
               <span className="text-sm">Preview</span>
             </div>
 
-            <img
+            <Image
+              width={400}
+              height={300}
+              unoptimized
               src={image}
               alt="post"
               className="w-full h-64 object-cover"
