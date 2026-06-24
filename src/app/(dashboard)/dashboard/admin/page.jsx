@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getAdminOverviewStats } from "@/lib/api/getAdminOverview";
 import AdminProfileCard from "./AdminProfileCard";
 import StatsGrid from "./StatsGrid";

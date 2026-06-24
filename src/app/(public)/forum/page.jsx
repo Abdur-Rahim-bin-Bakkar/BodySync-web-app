@@ -28,7 +28,7 @@ const ForumPage = async ({ searchParams }) => {
 
       <ForumSearch />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts?.length > 0 ? (
           posts.map((post) => (
             <ForumCard

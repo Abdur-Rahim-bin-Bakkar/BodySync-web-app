@@ -1,26 +1,39 @@
 import { getClassById } from "@/lib/api/getClassDetails";
+import { getUserById } from "@/lib/api/getUserById";
 import Link from "next/link";
 
-const UserBookingRow =async ({ booking }) => {
-    const bookingData = await getClassById(booking?.classId)
-    console.log(booking?.classId,'row thke bolchi')
-    console.log(bookingData,'row thke bolchi')
+const UserBookingRow = async ({ booking }) => {
+    const bookingData = await getClassById(booking?.classId);
+
+    const userResponse = await getUserById(booking?.userId);
+    const user = userResponse?.data;
+    console.log(bookingData?.schedule, 'dfdfdf')
+
     return (
-        <tr className="border-t hover:bg-gray-50">
-            
+        <tr className="border-t">
+            {/* User Name */}
+            <td className="p-3">
+                {user?.name || "N/A"}
+            </td>
+
+            {/* User Email */}
+            <td className="p-3">
+                {user?.name || "N/A"}
+            </td>
+
             {/* Class Name */}
             <td className="p-3">
-                {bookingData.className || "N/A"}
+                {Array.isArray(bookingData?.className)
+                    ? bookingData.className.join(", ")
+                    : bookingData?.className || "N/A"}
             </td>
 
             {/* Trainer Name */}
-            <td className="p-3">
-                {bookingData.trainerName || "N/A"}
-            </td>
+
 
             {/* Schedule */}
             <td className="p-3">
-                {bookingData.schedule || "N/A"}
+                {bookingData?.schedule || "N/A"}
             </td>
 
             {/* Action */}
@@ -32,7 +45,6 @@ const UserBookingRow =async ({ booking }) => {
                     View
                 </Link>
             </td>
-
         </tr>
     );
 };

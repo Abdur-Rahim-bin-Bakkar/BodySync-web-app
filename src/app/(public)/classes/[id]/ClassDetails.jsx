@@ -14,6 +14,7 @@ import { useUserSessionClient } from "@/lib/session/client";
 // ⭐ react-toastify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
 
 const ClassDetails = ({
     classData,
@@ -121,7 +122,10 @@ const ClassDetails = ({
             <div className="grid lg:grid-cols-2 gap-10 items-center">
 
                 <div>
-                    <img
+                    <Image
+                        width={400}
+                        height={300}
+                        unoptimized
                         src={classData.image}
                         alt={classData.className}
                         className="w-full h-[450px] object-cover rounded-3xl shadow-lg"
@@ -193,8 +197,8 @@ const ClassDetails = ({
                                     <button
                                         disabled={booked || isBlocked}
                                         className={`px-8 py-3 rounded-xl font-medium text-white transition ${booked || isBlocked
-                                                ? "bg-gray-400 cursor-not-allowed"
-                                                : "bg-orange-500 hover:bg-orange-600"
+                                            ? "bg-gray-400 cursor-not-allowed"
+                                            : "bg-orange-500 hover:bg-orange-600"
                                             }`}
                                         type="submit"
                                     >

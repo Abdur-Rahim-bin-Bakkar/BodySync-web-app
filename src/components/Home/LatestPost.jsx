@@ -7,7 +7,7 @@ const LatestPost = async () => {
     const latestPostData = await getLatestForumPosts();
 
     return (
-        <section className="max-w-11/12 mx-auto px-4 md:px-10 py-12">
+        <section className="max-w-7xl mx-auto px-4 md:px-10 py-12">
             {/* Header */}
             <div className="mb-8 text-center md:text-left">
                 <h2 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white">
@@ -34,7 +34,7 @@ const LatestPost = async () => {
             </div>
             <div className="flex justify-center mt-12">
                 <Link href="/forum">
-                    <button className="px-6 py-3 bg-green-500 hover:bg-orange-600 text-white rounded-xl font-semibold transition">
+                    <button className="px-6 py-3 bg-green-500 hover:bg-orange-600 text-white rounded-xl font-semibold transition cursor-pointer">
                         See More Posts
                     </button>
                 </Link>

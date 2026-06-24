@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 import { FaRegComment, FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 import { getUserById } from "@/lib/api/getUserById";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const ForumCard = ({ post }) => {
+  // const MotionImage = motion(Image);
   const [postUserInfo, setPostUserInfo] = useState(null);
 
   useEffect(() => {
@@ -33,23 +35,21 @@ const ForumCard = ({ post }) => {
       whileHover={{ y: -8 }}
       className="bg-white dark:bg-[#111827] rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 transition-all duration-300 h-full flex flex-col relative"
     >
-      <motion.img
-        src={post.image}
+    
+      <Image src={post.image}
         alt={post.title}
-        className="w-full h-56 object-cover"
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.3 }}
-      />
+        className="w-full h-56 object-cover hover:scale-110 duration-500"
+        unoptimized
+        width={400} height={350} />
 
       <span
         className={`px-2 py-1 text-xs font-semibold rounded-full capitalize w-20 justify-center items-center absolute top-4 left-4 flex 
-    ${
-      post.authorRole === "admin"
-        ? "bg-red-100 text-red-600 border border-red-300"
-        : post.authorRole === "trainer"
-        ? "bg-blue-100 text-blue-600 border border-blue-300"
-        : "bg-gray-100 text-gray-600 border border-gray-300"
-    }
+    ${post.authorRole === "admin"
+            ? "bg-red-100 text-red-600 border border-red-300"
+            : post.authorRole === "trainer"
+              ? "bg-blue-100 text-blue-600 border border-blue-300"
+              : "bg-gray-100 text-gray-600 border border-gray-300"
+          }
   `}
       >
         {post.authorRole || "User"}
@@ -111,7 +111,7 @@ const ForumCard = ({ post }) => {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl transition"
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl transition cursor-pointer"
             >
               Read More
             </motion.button>

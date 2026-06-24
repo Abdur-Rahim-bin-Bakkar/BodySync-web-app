@@ -69,7 +69,7 @@ export default function WhyChooseGym() {
 
   return (
     <section className="py-24 px-4 bg-white dark:bg-[#0B0F14] text-gray-900 dark:text-white">
-      <div className="max-w-11/12 mx-auto">
+      <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
         <motion.div
@@ -119,7 +119,7 @@ export default function WhyChooseGym() {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowCalculator(!showCalculator)}
-            className="px-8 py-4 rounded-full bg-[#FF6A1C] hover:bg-orange-600 text-white font-semibold shadow-lg"
+            className="px-8 py-4 rounded-full bg-[#FF6A1C] hover:bg-orange-600 text-white font-semibold shadow-lg cursor-pointer"
           >
             Let’s Check Your Health
           </motion.button>

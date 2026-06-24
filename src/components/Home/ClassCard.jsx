@@ -1,9 +1,12 @@
 "use client";
 
+import { Button } from "@heroui/react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 const ClassCard = ({ cls }) => {
+  console.log(cls.image, ' image url')
   return (
     <div
 
@@ -12,12 +15,20 @@ const ClassCard = ({ cls }) => {
     >
       {/* IMAGE */}
       <div className="overflow-hidden">
-        <motion.img
-          src={cls.image}
-          alt={cls.className}
-          className="h-44 w-full object-cover group-hover:scale-110 transition-transform duration-500"
-          whileHover={{ scale: 1.1 }}
-        />
+       
+
+        {
+          cls.image &&
+          <Image src={cls.image}
+            alt={cls.className}
+            width={400}
+            height={350}
+            className="h-44 w-full object-cover group-hover:scale-110 transition-transform duration-500"
+            unoptimized
+          />
+        }
+
+        {/* </Image> */}
       </div>
 
       {/* CONTENT */}
@@ -69,13 +80,13 @@ const ClassCard = ({ cls }) => {
           whileTap={{ scale: 0.95 }}
         >
           <Link href={`/classes/${cls._id}`}>
-            <button className="w-full mt-3 relative overflow-hidden bg-orange-500 text-white py-2 rounded-lg font-medium transition-all">
+            <Button className="w-full mt-3 relative overflow-hidden bg-orange-500 text-white py-2 rounded-lg font-medium transition-all cursor-pointer">
 
               {/* glow effect */}
               <span className="absolute inset-0 bg-white opacity-10 group-hover:opacity-20 transition"></span>
 
               View Details
-            </button>
+            </Button>
           </Link>
         </motion.div>
 

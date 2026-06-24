@@ -77,7 +77,7 @@ export default function FAQSection() {
                 onClick={() => toggle(index)}
                 className="
                   w-full flex justify-between items-center p-4 text-left
-                  hover:bg-gray-100 dark:hover:bg-white/10 transition
+                  hover:bg-gray-100 dark:hover:bg-white/10 transition cursor-pointer
                 "
               >
                 <span className="font-medium">{faq.question}</span>

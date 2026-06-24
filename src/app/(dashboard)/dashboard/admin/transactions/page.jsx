@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getTransactions } from "@/lib/api/getTransactions";
 import { getUserById } from "@/lib/api/getUserById";
 

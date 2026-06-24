@@ -13,10 +13,11 @@ const UserBookingsTable = ({ bookings }) => {
         <div className="overflow-x-auto">
             <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
                 
-                <thead className="bg-gray-100 text-left">
+                <thead className="bg-gray-100 dark:bg-black  text-left">
                     <tr>
                         <th className="p-3">Class Name</th>
                         <th className="p-3">Trainer Name</th>
+                        <th className="p-3">Type</th>
                         <th className="p-3">Schedule</th>
                         <th className="p-3">Action</th>
                     </tr>

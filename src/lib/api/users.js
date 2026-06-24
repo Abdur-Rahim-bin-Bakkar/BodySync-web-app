@@ -38,7 +38,10 @@ export const updateUserStatus = async (id, status) => {
 export const makeAdmin = async (id) => {
     const res = await fetch(`${BASE_URL}/users/${id}/make-admin`, {
         method: "PATCH",
-        ...(await authHeader())
+        headers: {
+            "Content-Type": "application/json",
+            ...(await authHeader())
+        },
     });
 
     return res.json();

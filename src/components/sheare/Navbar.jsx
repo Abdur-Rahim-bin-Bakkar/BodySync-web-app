@@ -16,6 +16,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { useClientToken, useUserSessionClient } from "@/lib/session/client";
 import ThemeToggle from "./ThemeToggle";
+import Image from "next/image";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -65,10 +66,12 @@ export default function Navbar() {
 
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2 group">
-          <img
+          <Image
             src="/images/logo.png"
             className="h-10 w-10 rounded-full"
             alt="logo"
+            width={100}
+            height={100}
           />
           <span className="text-xl font-bold group-hover:text-[#FF6A1C] transition">
             BodySync
@@ -107,9 +110,8 @@ export default function Navbar() {
                 </span>
 
                 <span
-                  className={`absolute left-0 -bottom-1 h-[2px] bg-[#FF6A1C] transition-all ${
-                    active ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                  className={`absolute left-0 -bottom-1 h-[2px] bg-[#FF6A1C] transition-all ${active ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
                 />
               </Link>
             );
@@ -136,10 +138,13 @@ export default function Navbar() {
               </Link>
 
               <div className="flex items-center gap-2">
-                <img
+                <Image
                   src={user?.image || "/images/user.png"}
                   className="h-9 w-9 rounded-full border border-gray-200 dark:border-white/20"
                   alt="user"
+                  width={300}
+                  height={300}
+                  unoptimized
                 />
                 <span className="text-sm text-gray-600 dark:text-gray-300">
                   Hi,{" "}
