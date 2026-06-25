@@ -14,16 +14,16 @@ export default function HeroBanner() {
 
   return (
     <section className="relative min-h-[85vh] w-full flex items-center justify-center overflow-hidden bg-white text-black dark:bg-zinc-950 dark:text-white px-4 py-12 md:py-0 transition-colors duration-300">
-      
+
       {/* BACKGROUND BLUR EFFECT (Glow for Dark Mode) */}
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF6A1C] opacity-[0.08] dark:opacity-[0.12] rounded-full blur-[120px] pointer-events-none z-0 hidden sm:block" />
 
       {/* CONTAINER FOR TWO COLUMNS */}
       <div className="relative z-10 max-w-7xl w-full flex flex-col-reverse md:flex-row items-center justify-between gap-12 lg:gap-16">
-        
+
         {/* LEFT COLUMN: CONTENT */}
         <div className="w-full md:w-1/2 text-center md:text-left flex flex-col justify-center">
-          
+
           {/* TITLE WITH TEXT SHADOW */}
           {mounted && (
             <motion.h1
@@ -80,7 +80,7 @@ export default function HeroBanner() {
               >
                 Explore Classes
               </Link>
-              
+
               {/* SECONDARY BUTTON */}
               <Link
                 href="/forum"
@@ -114,7 +114,7 @@ export default function HeroBanner() {
             >
               {/* Soft blur card-like effect behind the main image */}
               <div className="absolute inset-4 bg-gray-100/50 dark:bg-zinc-900/30 rounded-3xl blur-xl z-[-1]" />
-              
+
               <Image
                 src="/images/banner.png"
                 alt="BodySync Fitness"
@@ -123,7 +123,7 @@ export default function HeroBanner() {
                 className="object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_30px_50px_rgba(0,0,0,0.5)]"
                 sizes="(max-w-768px) 100vw, 50vw"
               />
-              
+
               {/* DECORATIVE CORNER FRAMES */}
               <div className="absolute -bottom-2 -left-2 w-16 h-16 border-b-[3px] border-l-[3px] border-[#FF6A1C] rounded-bl-2xl opacity-70 pointer-events-none hidden sm:block" />
               <div className="absolute -top-2 -right-2 w-16 h-16 border-t-[3px] border-r-[3px] border-[#FF6A1C] rounded-tr-2xl opacity-70 pointer-events-none hidden sm:block" />

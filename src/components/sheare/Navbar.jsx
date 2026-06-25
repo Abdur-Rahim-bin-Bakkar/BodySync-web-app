@@ -79,7 +79,7 @@ export default function Navbar() {
         </Link>
 
         {/* NAV */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((item) => {
             const Icon = item.icon;
             const active = isActive(item.path);
@@ -119,7 +119,7 @@ export default function Navbar() {
         </nav>
 
         {/* RIGHT */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
 
           <ThemeToggle />
 
@@ -186,7 +186,7 @@ export default function Navbar() {
         </div>
 
         {/* MOBILE */}
-        <div className="md:hidden flex items-center gap-2">
+        <div className="lg:hidden flex items-center gap-2">
           <ThemeToggle />
           <button onClick={() => setOpen(!open)}>
             {open ? <X /> : <Menu />}
@@ -198,7 +198,7 @@ export default function Navbar() {
       {open && (
         <div
           className="
-            md:hidden border-t px-4 py-4 space-y-2
+            lg:hidden border-t px-4 py-4 space-y-2
             bg-white text-gray-900 border-gray-200
             dark:bg-[#0B0F14] dark:text-white dark:border-white/10
           "
@@ -220,13 +220,26 @@ export default function Navbar() {
           })}
 
           {user && (
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center justify-center gap-2 py-2 mt-2 rounded-md text-red-500 border border-red-200 dark:border-red-500/20 hover:bg-red-50 dark:hover:bg-red-500/10"
-            >
-              <LogOut size={16} />
-              Logout
-            </button>
+            <>
+              <Link
+                href="/dashboard"
+                className="
+                  px-3 py-1 rounded-md border transition
+                  border-gray-200 text-gray-700 hover:border-[#FF6A1C] hover:text-[#FF6A1C]
+                  dark:border-white/10 dark:text-gray-300
+                "
+              >
+                <LayoutDashboard size={16} className="inline mr-1" />
+                Dashboard
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center justify-center gap-2 py-2 mt-2 rounded-md text-red-500 border border-red-200 dark:border-red-500/20 hover:bg-red-50 dark:hover:bg-red-500/10"
+              >
+                <LogOut size={16} />
+                Logout
+              </button>
+            </>
           )}
         </div>
       )}
