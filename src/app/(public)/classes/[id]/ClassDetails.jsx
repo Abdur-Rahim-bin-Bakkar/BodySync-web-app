@@ -33,6 +33,7 @@ const ClassDetails = ({
     // console.log(isFavorite, 'favo')
 
 
+    console.log(classData.schedule, 'ula me tale tale u')
 
     // ⭐ FAVORITE TOGGLE
     const handleFavorite = async () => {
@@ -166,9 +167,16 @@ const ClassDetails = ({
                         <div className="border rounded-2xl p-4">
                             <FaCalendarAlt className="text-orange-500 text-xl mb-2" />
                             <p className="text-sm text-gray-500">Schedule</p>
-                            <h3 className="font-semibold text-sm">
-                                {classData.schedule}
-                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                                {classData?.schedule?.map((she, index) => (
+                                    <span
+                                        key={index}
+                                        className="px-3 py-1 text-sm font-medium rounded-full bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-300 border border-orange-200 dark:border-orange-500/30"
+                                    >
+                                        {she}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
 
                         <div className="border rounded-2xl p-4">

@@ -51,7 +51,14 @@ export default function HeroBanner() {
               where trainers, members, and admins connect to achieve real results.
               Book classes, track progress, and stay motivated every day.
             </motion.p>
+
           )}
+          <div className="inline-flex items-center gap-2 px-4 mt-5 py-2 rounded-full border border-orange-500/30 bg-orange-500/10 backdrop-blur-sm">
+            <span>🔥</span>
+            <span className="text-sm font-medium text-orange-300">
+              Fitness Reimagined for the Modern Lifestyle
+            </span>
+          </div>
 
           {/* BUTTONS CONTAINER */}
           {mounted && (

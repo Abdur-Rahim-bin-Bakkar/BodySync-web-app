@@ -1,10 +1,13 @@
 'use server'
 import { authHeader } from "../header/header";
 
-export const getForumPosts = async (search = "") => {
+export const getForumPosts = async (
+    search = "",
+    page = 1
+) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_SERVER_URI}/forum-posts?search=${search}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URI}/forum-posts?search=${search}&page=${page}`,
             {
                 cache: "no-store",
             }
@@ -16,10 +19,20 @@ export const getForumPosts = async (search = "") => {
             throw new Error(data.message);
         }
 
-        return data.data;
+        return {
+            posts: data.data,
+            pagination: data.pagination,
+        };
     } catch (error) {
-        console.error("Error fetching forum posts:", error.message);
-        return [];
+        console.error(
+            "Error fetching forum posts:",
+            error.message
+        );
+
+        return {
+            posts: [],
+            pagination: null,
+        };
     }
 };
 
@@ -34,7 +47,7 @@ export const getForumPostById = async (id) => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                 ...(await authHeader()),
+                ...(await authHeader()),
             },
             cache: "no-store", // Next.js server component এর জন্য useful
         });
