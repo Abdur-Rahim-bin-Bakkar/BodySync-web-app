@@ -2,7 +2,9 @@ import { incrementBookingCount } from '@/app/api/patch/bookingCountUpdata'
 import { getClassById } from '@/lib/api/getClassDetails'
 import { createBooking } from '@/lib/post/bookings'
 import { stripe } from '@/lib/stripe'
+import { Button } from '@heroui/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 // import { stripe } from '../../lib/stripe'
@@ -64,6 +66,14 @@ export default async function Success({ searchParams }) {
               <p className="text-base-content/70 mt-2">
                 Thank you for booking your class.
               </p>
+              <div className="flex items-center justify-center min-h-screen">
+                <Link href="/">
+                  <Button className="px-6 py-2 rounded-full bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-md">
+                    Go back home
+                  </Button>
+                </Link>
+              </div>
+
             </div>
 
             <div className="bg-base-200 rounded-xl p-5 space-y-3">
