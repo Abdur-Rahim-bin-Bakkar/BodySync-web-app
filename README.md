@@ -13,7 +13,7 @@ The application follows a Role-Based Access Control (RBAC) architecture and prov
 ## 🌐 Live Website
 
 ```bash
-https://your-live-site-url.com
+https://body-sync-app.vercel.app/
 ```
 
 ---
