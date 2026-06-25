@@ -7,6 +7,7 @@ import Footer from "@/components/sheare/Footer";
 import Providers from "@/lib/provider/ThemeProvider";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
+import CustomCursor from "@/components/CustomCursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
+        <CustomCursor />
         <Providers>
 
           {/* <MainNavbar /> */}

@@ -1,4 +1,5 @@
 'use server'
+import { revalidatePath } from "next/cache";
 import { authHeader } from "../header/header";
 
 const base = process.env.NEXT_PUBLIC_SERVER_URI;
@@ -10,6 +11,7 @@ export const approveClass = async (id) => {
             ...(await authHeader()),
         }
     });
+    revalidatePath('/dashboard/admin/classes')
     return res.json();
 };
 
@@ -20,7 +22,9 @@ export const rejectClass = async (id) => {
             ...(await authHeader()),
         }
     });
+    revalidatePath('/dashboard/admin/classes')
     return res.json();
+
 };
 
 export const deleteClass = async (id) => {
@@ -30,5 +34,7 @@ export const deleteClass = async (id) => {
             ...(await authHeader()),
         }
     });
+    revalidatePath('/dashboard/admin/classes')
     return res.json();
+
 };

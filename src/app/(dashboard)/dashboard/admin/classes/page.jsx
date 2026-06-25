@@ -95,7 +95,7 @@ export default function ManageClassesPage() {
 
                                     {/* TRAINER */}
                                     <td className="p-4 align-middle">
-                                        <div className="flex items-center gap-3 min-w-[180px]">
+                                        <div className="flex items-center gap-3 ">
 
                                             <Image
                                                 width={400}

@@ -50,7 +50,7 @@ export default function ActionButtons({ id, setClasses }) {
     };
 
     return (
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row gap-2">
 
             <Button
                 onClick={() => handleAction("approve")}

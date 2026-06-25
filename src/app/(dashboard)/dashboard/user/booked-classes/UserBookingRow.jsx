@@ -4,16 +4,17 @@ import Link from "next/link";
 
 const UserBookingRow = async ({ booking }) => {
     const bookingData = await getClassById(booking?.classId);
-
+    
     const userResponse = await getUserById(booking?.userId);
     const user = userResponse?.data;
-    console.log(bookingData?.schedule, 'dfdfdf')
+    console.log(bookingData,'bok')
+    // console.log(bookingData?.schedule, 'dfdfdf')
 
     return (
         <tr className="border-t">
             {/* User Name */}
             <td className="p-3">
-                {user?.name || "N/A"}
+                {bookingData?.className || "N/A"}
             </td>
 
             {/* User Email */}
